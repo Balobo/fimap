@@ -1,0 +1,57 @@
+<template name="createDepense">
+    {{#if currentUser}}
+        <h3><i class="fa fa-angle-right"></i> Ajouter une dépense</h3>
+        <form>
+            <div class="col-md-offset-1 col-md-6">
+                <div class="form-group">
+                    <label for="type">Type de Dépense<strong>*</strong></label>
+                    <select id="type" name="type" class="form-control input-md">
+                        <option value="eau">Eau</option>
+                        <option value="electricite">Electricité</option>
+                        <option value="loyer">Loyer</option>
+                        <option value="deplacement">Déplacement</option>
+                        <option value="achat">Achat Materiel</option>
+                        <option value="autre">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="InputDescription">D&eacute;scription</label>
+                    <textarea id="InputDescription" class="form-control depenseDesc" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="inputDate">Date de dépense<strong>*</strong></label>
+                    <input type="text"
+                           class="form-control depenseDate datetimepicker"
+                           id="inputDate" placeholder="Choisissez une Date">
+                </div>
+                <div class="form-group">
+                    <label for="InputLocation">Lieu</label>
+                    <input id="InputLocation" type="text" class="form-control depenseLocation">
+                </div>
+                <div class="form-group">
+                    <label for="InputBudget">Montant<strong>*</strong></label>
+                    <input id="InputBudget" type="number" class="form-control coutDepense">
+                </div>
+                <div class="form-group">
+                    <label for="justificatif">Justificatif</label>
+                    <input id="justificatif" type="file" class="file file_bag3" data-show-upload="true" data-show-caption="true">
+                </div>
+                <a class="btn btn-success addDepense">Ajouter</a>
+                {{>progressBarDepenses}}
+            </div>
+
+        </form>
+    {{/if}}
+</template>
+
+<template name="progressBarDepenses">
+    <div class="col-md-4">
+        <div class="progress" style="display: block; margin: 0 auto;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width:{{progress}}%;">
+                <span>{{progress}}% Complete</span>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,28 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-platform
+autopublish
+insecure
+edgee:slingshot
+matteodem:easy-search
+iron:router
+juliancwirko:s-alert
+twbs:bootstrap
+juliancwirko:s-alert-bouncyflip
+multiply:iron-router-progress
+jquery
+fortawesome:fontawesome
+accounts-base
+accounts-password
+service-configuration
+nilsdannemann:pdfmake
+momentjs:moment
+tsega:bootstrap3-datetimepicker
+chart:chart
+reactive-var
+forwarder:autoform-wizard
+aldeed:simple-schema

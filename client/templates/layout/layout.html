@@ -1,0 +1,64 @@
+<template name="layout">
+    <section>
+        {{#if currentUser}}
+            <section id="container">
+                {{>navigation}}
+                <section id="main-content">
+                    <section class="wrapper site-min-height">
+                        {{>yield}}
+                    </section>
+                </section>
+                <!-- /MAIN CONTENT -->
+            </section>
+        {{else}}
+            <section class="fimpBackG">
+                <section>
+                    <section class="wrapper site-min-height">
+                        {{>yield}}
+                    </section>
+                </section>
+            </section>
+        {{/if}}
+
+    </section>
+    <script class="include" src="../lib/jquery-ui-1.9.2.custom.min.js"></script>
+    <script class="include" src="../js/jquery.ui.touch-punch.min.js"></script>
+    <script class="include" type="text/javascript" src="../lib/jquery.dcjqaccordion.2.7.js"></script>
+    <script class="include" src="../lib/jquery.scrollTo.min.js"></script>
+    <script class="include" src="../lib/jquery.nicescroll.js" type="text/javascript"></script>
+</template>
+
+
+<template name="homePage">
+    <div id="homepage">
+        <div class="container">
+            <div class="row logo-row">
+                <div class="col-md-offset-4 col-md-4">
+                    <img src="fimaplogo.png" alt="FIMAP logo"/>
+                </div>
+            </div>
+            <div class="row">
+                <h2 class="welcome-message" style="color: #f2f2f2">Bienvenue dans le Système de Reportings et
+                    Statistiques de la FIMAP</h2>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <a href="/login"><img src="fimaplogo.png" alt="FIMAP logo" class="loginIcons"/></a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/login"><img src="dpa.jpg" alt="DPA logo" class="loginIcons"/></a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/login"><img src="onssa.jpg" alt="ONSSA logo" class="loginIcons"/></a>
+                </div>
+                <div class="col-md-3">
+                    <a href="/login"><img src="ONCA.jpg" alt="ONCA logo" class="loginIcons"/></a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
+
+
+

@@ -1,0 +1,23 @@
+.imglogo{
+	max-height: 55px;
+	margin-top: -13px;
+}
+
+.loginIcons{
+	width : 200px;
+	height : 100px;
+}
+
+.logo-row{
+	margin: 10% 0px;
+}
+
+.welcome-message{
+	margin: 0px 0px 50px 0px;
+	text-align : center;
+	font-weight: 600;
+}
+
+html {
+    padding: 0 !important;
+}

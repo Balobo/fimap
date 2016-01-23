@@ -1,0 +1,64 @@
+<template name="projectSearch">
+    {{#if currentUser}}
+        {{>search}}
+    {{else}}
+        {{>login}}
+    {{/if}}
+
+</template>
+
+<template name="search">
+    <div class="fixedBodyContainer" style="margin: 3%">
+        <div class="row-fluid">
+            <div class="col-md-8 leftBody demo-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="input-group col-md-3">
+                    {{> esInput index="projects" placeholder="rechercher..." class="form-control"}}
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">Go!</button>
+                    </span>
+                </div>
+                <!-- /input-group -->
+
+                {{#esEach index="projects"}}
+                    {{>searchResult}}
+                {{/esEach}}
+            </div>
+        </div>
+    </div>
+
+    {{> esLoadMoreButton index="projects"}}
+
+    {{#ifEsHasNoResults index="projects"}}
+        <div class="no-results">Pas de resultats pour votre recherche</div>
+    {{/ifEsHasNoResults}}
+
+    {{#ifEsIsSearching index="projects"}}
+        <div>Loading...</div>
+    {{/ifEsIsSearching}}
+</template>
+
+
+<template name="searchResult">
+    <div class="media">
+        <div class="media-left">
+            <a href="#">
+                <img class="media-object searchcover" src="{{projectCover}}" alt="...">
+            </a>
+        </div>
+        <div class="media-body searchcoverpad">
+            <h4 class="media-heading"><a href="/project/{{this._id}}">{{projectType}}</a>
+                <small>by {{projectUsername}}<a href="#"></a></small>
+            </h4>
+            <p>{{projectDesc}}</p>
+
+        </div>
+    </div>
+</template>

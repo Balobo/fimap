@@ -1,0 +1,56 @@
+<template name="pageBudgets">
+    {{#if currentUser}}
+        {{#if currentUser.profile.region}}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="jumbotron jumbotronBudgets">
+                        <h2>Budgets {{currentUser.profile.region.desc}}</h2>
+                        <p>Déclaration et suivi des Budgets alloués à la région {{currentUser.profile.region.nom}} par la FIMAP</p>
+                        <p><a class="btn btn-success btn-lg" href="/budgets" role="button">Accéder</a></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="jumbotron jumbotronBudgets">
+                        <h2>Dépenses {{currentUser.profile.region.desc}}</h2>
+                        <p>Déclaration et suivi des dépenses internes de la région {{currentUser.profile.region.nom}}</p>
+                        <p><a class="btn btn-success btn-lg" href="/depensesInternes" role="button">Accéder</a></p>
+                    </div>
+                </div>
+            </div>
+        {{else}}
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="jumbotron jumbotronBudgets">
+                        <h2>Budgets FIMAP</h2>
+                        <p>Déclaration et suivi des Budgets alloués par les bailleurs de fonds</p>
+                        <p><a class="btn btn-success btn-lg" href="/budgetFimap" role="button">Accéder</a></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="jumbotron jumbotronBudgets">
+                        <h2>Budgets Régions</h2>
+                        <p>Validation et suivi des Budgets demandés par les associations régionales</p>
+                        <p><a class="btn btn-success btn-lg" href="/budgets" role="button">Accéder</a></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="jumbotron jumbotronBudgets">
+                        <h2>Dépenses FIMAP</h2>
+                        <p>Déclaration et suivi des dépenses internes de la FIMAP</p>
+                        <p><a class="btn btn-success btn-lg" href="/depensesInternes" role="button">Accéder</a></p>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="jumbotron jumbotronBudgets">
+                        <h2>Dépenses Régions</h2>
+                        <p>Suivi des dépenses internes des Associations régionales</p>
+                        <p><a class="btn btn-success btn-lg" href="/depensesAr" role="button">Accéder</a></p>
+                    </div>
+                </div>
+            </div>
+        {{/if}}
+    {{/if}}
+</template>

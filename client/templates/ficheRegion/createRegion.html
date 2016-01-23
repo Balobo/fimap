@@ -1,0 +1,50 @@
+<template name="createRegion">
+    {{#if currentUser}}
+
+        <form class="form-horizontal">
+            <div class="col-md-8">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Creer une Region</legend>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="nom">Nom de la region  <strong>*</strong> </label>
+
+                        <div class="col-md-4">
+                            <input id="nom" name="nom" type="text" placeholder="Nom de la region"
+                                   class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+
+                    <!-- Textarea -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="desc">Description</label>
+
+                        <div class="col-md-4">
+                            <textarea class="form-control" rows="5" id="desc" name="desc"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="Valider"></label>
+
+                        <div class="col-md-4">
+                            <a class="btn btn-success saveRegion">Valider</a>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+        </form>
+
+
+    {{else}}
+        {{>login}}
+    {{/if}}
+
+
+</template>

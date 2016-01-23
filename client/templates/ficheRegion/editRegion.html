@@ -1,0 +1,192 @@
+<template name="editRegion">
+
+    {{#if currentUser}}
+
+        <form class="form-horizontal row">
+            <div class="col-md-12">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Editer une région</legend>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="nom">Nom de la région <strong>*</strong> </label>
+
+                        <div class="col-md-4">
+                            <input id="nom" name="nom" type="text" placeholder="Nom de la region"
+                                   class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+
+                    <!-- Textarea -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="desc">Description</label>
+
+                        <div class="col-md-4">
+                            <textarea class="form-control" rows="5" id="desc" name="desc"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="Valider"></label>
+
+                        <div class="col-md-4">
+                            <a class="btn btn-success updateRegion">Mettre a jour</a>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+        </form>
+        <hr>
+        {{>createProvince}}
+        <hr>
+        {{>createVille}}
+
+    {{else}}
+        {{>login}}
+    {{/if}}
+
+
+</template>
+
+<template name="createProvince">
+    <form class="form-horizontal row">
+        <div class="col-md-6">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Ajouter une province à cette région</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-6 control-label">Nom de la province <strong>*</strong> </label>
+
+                    <div class="col-md-4">
+                        <input id="province" type="text" placeholder="Nom de la province"
+                               class="form-control input-md" required="">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-md-6 control-label">Code Province <strong>*</strong> </label>
+
+                    <div class="col-md-4">
+                        <input id="codeProvince" type="number" placeholder="Code de la province"
+                               class="form-control input-md" required="">
+                    </div>
+                </div>
+                <div>
+                    <a class="btn btn-success valider">Valider</a>
+                </div>
+
+
+            </fieldset>
+        </div>
+
+        <div class="col-md-6">
+            <div class="content-panel">
+                <h4><i class="fa fa-angle-right"></i> Liste des provinces de cette region</h4>
+                <hr>
+                <table class="table table-striped table-advance table-hover" style="max-height: 1%">
+                    <thead>
+                    <tr>
+                        <th>Nom Province</th>
+                        <th>Code Province</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each provinces}}
+                        <tr style="max-height: 5%">
+                            <td><a href="/province/{{this._id}}"> {{this.nom}}</a></td>
+                            {{#if this.codeProvince}}
+                                <td>{{this.codeProvince}}</td>
+                            {{else}}
+                                <td>NA</td>
+                            {{/if}}
+
+                            <td style="float: right;">
+                                <a href="/province/{{this._id}}" class="btn btn-primary btn-xs"><i
+                                        class="fa fa-pencil"></i></a>
+                                <a class="btn btn-danger btn-xs removeProvince"><i
+                                        class="fa fa-trash-o "></i></a>
+                            </td>
+                        </tr>
+                    {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </form>
+
+
+</template>
+
+
+<template name="createVille">
+    <form class="form-horizontal row">
+        <div class="col-md-6">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Ajouter une ville à cette région</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Nom de la ville <strong>*</strong> </label>
+
+                    <div class="col-md-4">
+                        <input id="ville" type="text" placeholder="Nom de la ville"
+                               class="form-control input-md" required="">
+                    </div>
+
+                    <div class="col-md-2">
+                        <a class="btn btn-success valider">Valider</a>
+                    </div>
+                </div>
+
+                <!-- Button -->
+
+
+            </fieldset>
+        </div>
+
+        <div class="col-md-6">
+            <div class="content-panel">
+                <h4><i class="fa fa-angle-right"></i> Liste des villes de cette regions</h4>
+                <hr>
+                <table class="table table-striped table-advance table-hover" style="max-height: 1%">
+                    <thead>
+                    <tr>
+                        <th>Nom Ville</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each villes}}
+                        <tr style="max-height: 5%">
+                            <td><a href="/villes/{{this._id}}"> {{this.nom}}</a></td>
+                            <td style="float: right;">
+                                <a href="/villes/{{this._id}}" class="btn btn-primary btn-xs"><i
+                                        class="fa fa-pencil"></i></a>
+                                <a class="btn btn-danger btn-xs removeVille"><i
+                                        class="fa fa-trash-o "></i></a>
+                            </td>
+                        </tr>
+                    {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </form>
+
+
+</template>

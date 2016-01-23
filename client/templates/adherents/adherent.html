@@ -1,0 +1,170 @@
+<template name="adherents">
+    {{#if currentUser}}
+
+        {{#if currentUser.profile.region}}
+        <h3><i class="fa fa-angle-right"></i> Gestion des Adherents</h3>
+
+
+
+        <div class="row mt">
+            <div class="col-lg-12">
+                <a class="btn btn-info" href="/createAdhe" style="margin-bottom: 10px;"><strong>Creer un Adherent</strong></a>
+                <div class="content-panel">
+                    <h4><i class="fa fa-angle-right"></i> Liste des Adherents</h4>
+                    <hr>
+                    <table class="table table-striped table-advance table-hover">
+                        <thead>
+                        <tr>
+                            <th> Nom et Prenom</th>
+                            <th class="hidden-phone"> Région</th>
+                            <th> CIN </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#each adherentsList}}
+                            <tr>
+                                <td><a href="/adherents/{{this._id}}"> {{this.nom}} {{this.prenom}}</a></td>
+                                <td class="hidden-phone">{{nomRegion}}</td>
+                                <td>{{this.cin}}</td>
+                                <td>
+                                    <a href="/adherents/{{this._id}}" class="btn btn-primary btn-xs"><i
+                                            class="fa fa-pencil"></i></a>
+                                    <a class="btn btn-danger btn-xs removeAdherent" onclick="return attention();"><i
+                                            class="fa fa-trash-o "></i></a>
+                                </td>
+                            </tr>
+                        {{/each}}
+
+                        </tbody>
+                    </table>
+                </div>
+
+                {{>searchAdherent}}
+                <!-- /content-panel -->
+            </div>
+            <input hidden="true" id="testRemove">
+        </div>
+
+        {{else}}
+
+            <h3><i class="fa fa-angle-right"></i> Gestion des Adherents Au Niveau National</h3>
+
+
+
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <div class="content-panel">
+                        <h4><i class="fa fa-angle-right"></i> Liste des Adherents</h4>
+                        <hr>
+                        <table class="table table-striped table-advance table-hover">
+                            <thead>
+                            <tr>
+                                <th> Nom et Prenom</th>
+                                <th class="hidden-phone"> Région</th>
+                                <th> CIN </th>
+                                <th></th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{#each adherentsListAdmin}}
+                                <tr>
+                                    <td><a href="/adherents/{{this._id}}"> {{this.nom}} {{this.prenom}}</a></td>
+                                    <td class="hidden-phone">{{nomRegion}}</td>
+                                    <td>{{this.cin}}</td>
+                                    <td>
+                                        <a href="/adherents/{{this._id}}" class="btn btn-primary btn-xs"><i
+                                                class="fa fa-pencil"></i></a>
+                                        <a class="btn btn-danger btn-xs removeAdherent" onclick="return attention();"><i
+                                                class="fa fa-trash-o "></i></a>
+                                    </td>
+                                </tr>
+                            {{/each}}
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {{>searchAdherent}}
+                    <!-- /content-panel -->
+                </div>
+                <input hidden="true" id="testRemove">
+            </div>
+        {{/if}}
+
+
+    {{else}}
+        {{>login}}
+    {{/if}}
+
+    <script>
+        function attention() {
+            resultat = window.confirm('Attention, vous êtes sur le point de supprimer un adherent, voulez-vous continuer ?');
+            if (resultat == 1) {
+                $('#testRemove').val(null);
+            }
+            else {
+                $('#testRemove').val("yes");
+                return false;
+            }
+        }
+    </script>
+
+
+</template>
+
+<template name="searchAdherent">
+
+    <div class="row-fluid">
+                <div class="input-group col-md-3 " style="margin-top: 2%">
+                    {{> esInput index="adherent" placeholder="rechercher par prenom, nom , region ou cin" class="form-control"}}
+                </div>
+                <div class="content-panel">
+                    <h4><i class="fa fa-angle-right"></i> Resultats de Recherches</h4>
+                    <hr>
+                    <table class="table table-striped table-advance table-hover">
+                        <thead>
+                        <tr>
+                            <th> Nom et Prenom</th>
+                            <th class="hidden-phone"> Région</th>
+                            <th> CIN </th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{#esEach index="adherent"}}
+                            <tr>
+                                <td><a href="/adherents/{{this._id}}"> {{this.nom}} {{this.prenom}}</a></td>
+                                <td class="hidden-phone">{{this.region.nom}}</td>
+                                <td>{{this.cin}}</td>
+                                <td>
+                                    <a href="/adherents/{{this._id}}" class="btn btn-primary btn-xs"><i
+                                            class="fa fa-pencil"></i></a>
+                                    <a class="btn btn-danger btn-xs removeAdherent" onclick="return attention();"><i
+                                            class="fa fa-trash-o "></i></a>
+                                </td>
+                            </tr>
+                        {{/esEach}}
+
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /content-panel -->
+            <input hidden="true" id="testRemove">
+
+
+    </div>
+
+
+    {{> esLoadMoreButton index="adherent"}}
+
+    {{#ifEsHasNoResults index="adherent"}}
+        <div class="no-results">Pas de resultats pour votre recherche </div>
+    {{/ifEsHasNoResults}}
+
+    {{#ifEsIsSearching index="adherent"}}
+        <div>chargement...</div>
+    {{/ifEsIsSearching}}
+</template>
+
+

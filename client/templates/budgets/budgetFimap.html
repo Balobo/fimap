@@ -1,0 +1,78 @@
+<template name="budgetFimap">
+    {{#if currentUser}}
+        {{#if currentUser.profile.region}}
+            Not Authorized
+        {{else}}
+            <div class="row mt">
+                <div class="col-lg-12">
+                    <a class="btn btn-info" href="/createBailleur" style="margin-bottom: 10px;"><strong>Ajouter
+                        un Bailleur</strong></a>
+                    <a class="btn btn-info" href="/createFond" style="margin-bottom: 10px;"><strong>Ajouter
+                        un Fond</strong></a>
+
+                    {{>bailleur}}
+
+                </div>
+            </div>
+
+        {{/if}}
+    {{/if}}
+
+</template>
+
+
+<template name="bailleur">
+    <div class="col-lg-12">
+        <div class="content-panel">
+
+            <table class="table table-striped table-advance table-hover">
+                <thead>
+                <tr style="text-align: center;">
+                    <th>Nom du bailleur</th>
+                    <th>Date de l'aide</th>
+                    <th>Montant (MAD)</th>
+                    <th>Justificatif</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                {{#each bailleurList}}
+                    <tr style="text-align: center;">
+                        <td><a href="#"> {{nomBailleur}}</a></td>
+                        <td>{{dateFond}}</td>
+                        <td>{{montantFond}}</td>
+                        {{#if justificatifFond}}
+                            <td><a href="{{justificatifFond}}" target="_blank"
+                                   class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a></td>
+                        {{else}}
+                            <td><i class="fa fa-file-o"></i></td>
+                        {{/if}}
+
+                        <td>
+                            <a href="/bailleur/{{_id}}" class="btn btn-primary btn-xs"><i
+                                    class="fa fa-pencil"></i></a>
+                            <a class="btn btn-danger btn-xs removeFond" onclick="return attention();"><i
+                                    class="fa fa-trash-o "></i></a>
+                        </td>
+                    </tr>
+                {{/each}}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <script>
+        function attention() {
+            resultat = window.confirm('Attention, vous êtes sur le point de supprimer un Fond, voulez-vous continuer ?');
+            if (resultat == 1) {
+                $('#testRemove').val(null);
+            }
+            else {
+                $('#testRemove').val("yes");
+                return false;
+            }
+        }
+    </script>
+</template>

@@ -1,0 +1,33 @@
+p.commentText{
+	margin-left:40px;
+	font-size:10pt;
+}
+p.commentUser{
+	margin-left:50px;
+}
+
+.post-text{
+    font: large sans-serif;
+}
+
+.username{
+    color: #889A66 !important;
+    margin-bottom: 5px !important;
+}
+
+.img-circle{
+    margin-left: -2px !important;
+}
+
+.no-media{
+    border: none !important;
+    padding: 0px !important;
+}
+
+.like-zone{
+    font-size: small;
+}
+
+.comment-date{
+    margin-top: 5px;
+}

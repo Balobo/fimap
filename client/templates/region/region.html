@@ -1,0 +1,130 @@
+<template name="bureau">
+    {{#if currentUser}}
+        <div class="row-fluid">
+            <div class="col-md-12 ">
+                <ul class="timeline-list">
+                    <li class="media" style="border: none">
+                        <div class="media-body">
+                            <div class="row-journal">
+                                <div class="col-md-10 col-lg-8">
+                                    <div class="panel-journal panel-journal-default share">
+                                        <div class="panel-heading panel-heading-gray title">
+                                            <p class="post-text">Quoi de nouveau ?</p>
+                                        </div>
+                                        <div class="panel-body">
+                                                <textarea id="posttext" name="posttext"
+                                                          class="form-control share-text posttext" rows="3"
+                                                          placeholder="Partagez votre Statut..."></textarea>
+                                        </div>
+                                        <div class="panel-journal-footer share-buttons">
+                                            <button type="submit"
+                                                    class="btn-journal btn-primary-journal btn-xs-journal pull-right display-none"
+                                                    href="#">Publier
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        {{>bureauPicModal}}
+                    </li>
+                    {{#each posts}}
+                        {{>post}}
+                    {{/each}}
+                </ul>
+                <div class="col-md-4">
+                    <!--                         Responsive calendar - START
+                                            <div class="responsive-calendar">
+                                                <div class="controls">
+                                                    <a class="pull-left" data-go="prev">
+                                                        <div class="btn btn-primary-journal"><i
+                                                                class="glyphicon glyphicon-chevron-left"></i></div>
+                                                    </a>
+                                                    <h4><span data-head-year></span> <span data-head-month></span></h4>
+                                                    <a class="pull-right" data-go="next">
+                                                        <div class="btn btn-primary-journal"><i
+                                                                class="glyphicon glyphicon-chevron-right"></i></div>
+                                                    </a>
+                                                </div>
+                                                <hr class="calendar-margin"/>
+                                                <div class="day-headers">
+                                                    <div class="day header">Mon</div>
+                                                    <div class="day header">Tue</div>
+                                                    <div class="day header">Wed</div>
+                                                    <div class="day header">Thu</div>
+                                                    <div class="day header">Fri</div>
+                                                    <div class="day header">Sat</div>
+                                                    <div class="day header">Sun</div>
+                                                </div>
+                                                <div class="days" data-group="days">
+
+                                                </div>
+                                            </div>
+                                             Responsive calendar - END -->
+                </div>
+            </div>
+        </div>
+        {{>bureauScripts}}
+    {{else}}
+        {{>login}}
+    {{/if}}
+</template>
+
+<template name="bureauPicModal">
+    <div class="modal" id="myPicModalB" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Photo de Couverture</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row upload-row">
+                        <div class="col-md-4">
+                            <label for="input-2">Photo : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"
+                                     style="width: 200px; height: 150px;"></div>
+                                <div>
+                                    <span class="btn btn-default btn-file"><span
+                                            class="fileinput-new">Changer l'image</span>
+                                        <input id="upload1" type="file" class="file_bag"/></span>
+                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="inputTitle">Statut : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control postPicStatus">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary-journal sharePostPicture" data-dismiss="modal">
+                        Sauvegarder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="bureauScripts">
+    <script src="../lib/responsive-calendar.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".responsive-calendar").responsiveCalendar({
+                time: '2015-06'
+            });
+        });
+    </script>
+</template>

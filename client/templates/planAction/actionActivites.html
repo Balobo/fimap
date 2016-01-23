@@ -1,0 +1,40 @@
+<template name="actionActivites">
+    {{#if currentUser}}
+        <div class="col-lg-12 accordion-container">
+            <div class="content-panel actionsContentPanel">
+                <h4><i class="fa fa-angle-right"></i> Liste des Activités de la region par Action</h4>
+                <hr>
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    {{#each actions}}
+
+                        <div class="panel panel-default">
+                            <div class="panel-heading" role="tab" id="heading{{_id}}">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion"
+                                       href="#{{_id}}" aria-expanded="false" aria-controls="{{_id}}">
+                                        {{titre}}
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="{{_id}}" class="panel-collapse collapse" role="tabpanel"
+                                 aria-labelledby="{{_id}}">
+                                <div class="panel-body">
+                                    {{#if activites}}
+                                        <ul>
+                                            {{#each activites}}
+                                                <li>{{projectType}} : {{projectDesc}}</li>
+                                            {{/each}}
+                                        </ul>
+                                    {{else}}
+                                        <p>Aucune activité pour cette action</p>
+                                    {{/if}}
+                                </div>
+                            </div>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+
+    {{/if}}
+</template>

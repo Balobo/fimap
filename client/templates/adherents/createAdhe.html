@@ -1,0 +1,287 @@
+<template name="createAdhe">
+    {{#if currentUser}}
+
+        <form class="form-panel">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Creer un Adherent</legend>
+
+                <div class="form-group col-md-4">
+                    <h4>Photo Adhérent</h4>
+
+                    <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <div class="fileinput-preview thumbnail" data-trigger="fileinput"
+                             style="width: 200px; height: 150px;"></div>
+
+                        <div>
+                            <input id="upload1" type="file" class="file_bag"/>
+                            <a href="#" class="btn btn-default fileinput-exists"
+                               data-dismiss="fileinput">Supprimer</a>
+                        </div>
+                    </div>
+                </div>
+                {{>createAdhePicModal}}
+                <div class="col-md-8">
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class=" control-label" for="prenom">Prénom <strong>*</strong> </label>
+
+                        <div class="">
+                            <input id="prenom" name="prenom" type="text" placeholder="prenom"
+                                   class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class=" control-label" for="nomFamille">Nom de famille <strong>*</strong>
+                        </label>
+
+                        <div class="">
+                            <input id="nomFamille" name="nomFamille" type="text" placeholder="Nom de famille"
+                                   class="form-control input-md" required="">
+
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class=" control-label" for="cin">CIN <strong>*</strong> </label>
+
+                        <div class="">
+                            <input id="cin" name="cin" type="text" placeholder="CIN" class="form-control input-md"
+                                   required="">
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class=" control-label" for="dateNaissance">Date de Naissance<strong>*</strong></label>
+
+                        <input id="dateNaissance" name="dateNaissance" type="text"
+                               placeholder="Date de Naissance" class="form-control input-md datetimepicker2"
+                               required="">
+                    </div>
+
+                    <div class="form-group">
+                        <label class=" control-label">Sexe <strong>*</strong> </label>
+
+                        <label class="radio-inline" style="margin-left: 150px;">
+                            <input type="radio" name="inlineRadioOptions" id="hommeRadio" value="homme"> Homme
+                        </label>
+                        <label class="radio-inline" style="margin-left: 50px;">
+                            <input type="radio" name="inlineRadioOptions" id="femmeRadio" value="femme"> Femme
+                        </label>
+                    </div>
+
+                    <div class="form-group">
+                        <label class=" control-label" for="numEnreg">Numero d'enregistrement <strong>*</strong>
+                        </label>
+
+                        <div>
+                            <input id="numEnreg" name="numEnreg" type="text" placeholder="Numero d'enregistrement"
+                                   class="form-control input-md" required="">
+
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class=" control-label" for="tel">Telephone</label>
+
+                        <div>
+                            <input id="tel" name="tel" type="text" placeholder="Telephone"
+                                   class="form-control input-md">
+
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class=" control-label" for="email">Email</label>
+
+                        <div>
+                            <input id="email" name="email" type="text" placeholder="Adresse Mail"
+                                   class="form-control input-md">
+
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class=" control-label" for="adhérent">adhérent à</label>
+
+                        <div>
+                            <input id="adherent" name="adhérent" type="text" placeholder="adhérent"
+                                   class="form-control input-md">
+
+                        </div>
+                    </div>
+
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class=" control-label" for="ville">Ville</label>
+
+                        <div>
+                            <select id="ville" name="ville" class="form-control" required="">
+                                <option value='' disabled selected style='display:none;'>
+                                    Selectionner une ville
+                                </option>
+                                {{#each villes}}
+                                    <option value="{{this._id}}">{{this.nom}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Select Basic -->
+                    <div class="form-group">
+                        <label class=" control-label" for="province">province</label>
+
+                        <div>
+                            <select id="province" name="province" class="form-control">
+                                <option value='' disabled selected style='display:none;'>
+                                    Selectionner une province
+                                </option>
+                                {{#each provinces}}
+                                    <option value="{{this._id}}">{{this.nom}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label id="testSelect" class=" control-label" for="cps">Code province <strong>*</strong> </label>
+
+                        <div>
+                            <input id="cps" name="cps" type="text" placeholder="Code province"
+                                   class="form-control input-md" required="" disabled>
+
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class=" control-label" for="commune">Commune</label>
+
+                        <div>
+                            <select id="commune" name="commune" class="form-control">
+                                <option value='' disabled selected style='display:none;'>
+                                    Selectionner une Commune
+                                </option>
+                                {{#each communes}}
+                                    <option value="{{this._id}}">{{this.nom}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class=" control-label" for="adresse">Adresse</label>
+
+                        <div>
+                            <textarea class="form-control" id="adresse" name="adresse"
+                                      placeholder="Adresse de l'adhérent"></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class=" control-label">Nombre de Ruches <strong>*</strong> </label>
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label style="margin-right: 10px;">Sahariennes</label>
+                                <input type="number" id="nbrRuchesSah" class="input-md">
+                            </div>
+                            <div class="col-md-6">
+                                <label style="margin-right: 10px;">Noires</label>
+                                <input type="number" id="nbrRuchesNoires" class="input-md">
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Textarea -->
+                    <div class="form-group">
+                        <label class=" control-label" for="commentaire">Commentaire</label>
+
+                        <div>
+                            <textarea class="form-control" id="commentaire" name="commentaire"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Button -->
+                <div>
+                    <label class="col-md-4 control-label" for="Valider"></label>
+
+                    <div class="col-md-1">
+                        <a class="btn btn-success saveAdhe">Valider</a>
+                    </div>
+                    {{>progressBar4}}
+                </div>
+
+            </fieldset>
+        </form>
+
+
+    {{else}}
+        {{>login}}
+    {{/if}}
+
+
+</template>
+
+<template name="progressBar4">
+    <div class="col-md-3">
+        <div class="progress" style="display: block; margin: 0 auto;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width:{{progress}}%;">
+                <span>{{progress}}% Complete</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="createAdhePicModal">
+    <div class="modal" id="myProfilePicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Photo de Couverture</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row upload-row">
+                        <div class="col-md-4">
+                            <label for="input-2">Photo : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"
+                                     style="width: 200px; height: 150px;"></div>
+                                <div>
+                                    <span class="btn btn-default btn-file"><span
+                                            class="fileinput-new">Select image</span><input id="inputFileLien"
+                                                                                            type="file" class="file_bag"
+                                                                                            name="..."></span>
+                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary saveProfilePic" data-dismiss="modal">Sauvegarder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

@@ -1,0 +1,59 @@
+<template name="validateBudget">
+    {{#if currentUser}}
+
+        <form class="form-horizontal">
+            <div class="col-md-8">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Affecter un budget</legend>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="region">Region <strong>*</strong> </label>
+
+                        <select id="region" name="region" class="form-control" disabled="true">
+                            <option selected="{{selectedRegion}}" value="{{selectedRegion}}">{{selectedRegion}}</option>
+                        </select>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="region">Annee<strong>*</strong> </label>
+
+                        <select id="annee" name="annee" class="form-control" disabled="true">
+                            <option selected="{{selectedYear}}" value="{{selectedYear}}">{{selectedYear}}</option>
+                        </select>
+
+                    </div>
+
+
+                    <!-- Textarea -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="desc">Budget (DH)<strong>*</strong></label>
+
+                        <input id="budget" name="budget" placeholder="Budget souhaité"
+                               class="form-control input-md" required="" readonly="true">
+                    </div>
+
+                    <!-- Button -->
+                    <div class="form-group">
+                        <label class="col-md-4 control-label" for="Valider"></label>
+
+                        <div class="col-md-4">
+                            <a class="btn btn-success validateBudget">Valider budget</a>
+                        </div>
+                    </div>
+
+                </fieldset>
+            </div>
+        </form>
+
+
+    {{else}}
+        {{>login}}
+    {{/if}}
+
+
+</template>

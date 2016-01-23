@@ -1,0 +1,47 @@
+<template name="editBudget">
+    {{#if currentUser}}
+
+        <form class="form-horizontal">
+            <div class="row">
+                <fieldset>
+                    <!-- Form Name -->
+                    <legend>Demander un budget</legend>
+                    <div class="row col-md-8 col-md-offset-2">
+                        <div class="col-md-4">
+                            <label>Année Budgétaire<strong>*</strong> </label>
+                        </div>
+                        <div class="col-md-8">
+                            <select id="annee" name="annee" class="form-control">
+                                <option value="{{selectedYear.annee}}" selected>{{selectedYear.annee}}</option>
+                                <option value="2015">2015</option>
+                                <option value="2016">2016</option>
+                                <option value="2017">2017</option>
+                                <option value="2018">2018</option>
+                                <option value="2019">2019</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row col-md-8 col-md-offset-2">
+                        <div class="col-md-4">
+                            <label>Budget Souhaité (MAD)<strong>*</strong> </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="budget" name="budget" type="number" placeholder="Budget souhaité"
+                                   class="form-control">
+                        </div>
+                    </div>
+                    <!-- Button -->
+                    <div class="row col-md-8 col-md-offset-2">
+                        <a id="validateEdit" class="btn btn-success updateBudget fa-align-left" style="float: right;">Valider</a>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+
+
+    {{else}}
+        {{>login}}
+    {{/if}}
+
+
+</template>

@@ -1,0 +1,255 @@
+<template name="userProfile">
+    {{#if currentUser}}
+        <div class="fixedBodyContainer" style="margin: 3%">
+            <div class="row-fluid">
+                <div class="col-md-8 leftBody demo-3">
+                    <div class="media user-profile">
+                        <div class="media-object pull-left-profile">
+                            {{>profileBoxTemplate}}
+
+                        </div>
+                        <div class="media-body" style="max-width: 645px;">
+                            <div class="panel panel-default share">
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <!--Infos -->
+                                        {{>infosTemplate}}
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <!--Friends -->
+                                        {{>friendsTemplate}}
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-offset-3 col-sm-6">
+                                        <!-- Contact -->
+                                        {{>contactTemplate}}
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-offset-0 col-sm-10">
+                                        <!-- Contact -->
+                                        {{>friendsRequests}}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script>
+            $(document).ready(function () {
+                $('.carousel').slick({
+                    dots: true,
+                    infinite: true,
+                    speed: 300,
+                    slidesToShow: 1,
+                    centerMode: true,
+                    autoplay: true,
+                    autoplaySpeed: 2000,
+                    variableWidth: true
+                });
+            })
+        </script>
+    {{else}}
+        {{>login}}
+    {{/if}}
+</template>
+
+<template name="profileBoxTemplate">
+    <div class="panel panel-default profile-user-box">
+        <div class="avatar">
+            <a href="#" data-toggle="modal" data-target="#myProfilePicModal">
+                {{#if currUser.profile.cover}}
+                    <img src="guy-5.jpg" alt="" class="img-circle"/>
+                {{else}}
+                    <img src="profile-picture.png" alt="" class="img-circle"/>
+                {{/if}}
+            </a>
+
+            <h3>{{currUser.username}}</h3>
+            <a href="#" class="btn btn-primary addFriend">Ajouter <i class="fa fa-plus fa-fw"></i></a>
+        </div>
+        <div class="profile-icons">
+            <span><i class="fa fa-users"></i> {{friendsNumber}}</span>
+        </div>
+        {{#if currUser.profile.desc}}
+            <p>{{currUser.profile.desc}}</p>
+        {{else}}
+            <p>Hello</p>
+        {{/if}}
+    </div>
+    {{>profilePicModal}}
+</template>
+
+<template name="contactTemplate">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            Contact
+        </div>
+        <ul class="icon-list block bordered">
+            <li><i class="fa fa-envelope fa-fw"></i> <a href="#">{{currUser.email}}</a>
+            </li>
+            <li><i class="fa fa-home fa-fw"></i> <a href="#">{{currUser.profile.SiteWeb}}</a>
+            </li>
+        </ul>
+    </div>
+</template>
+
+<template name="carouselTemplate">
+    <div class="row carousel-row">
+        <div class="col-sm-12">
+            <div class="panel panel-default">
+                <div class="panel-heading panel-heading-gray">
+                    <i class="fa fa-picture-o"></i> Galerie
+                </div>
+                <div class="panel-body white-back">
+                    <div class="carousel-container">
+                        <div class="carousel">
+                            <div><img src="image1.jpg"/></div>
+                            <div><img src="image2.jpg"/></div>
+                            <div><img src="image3.jpg"/></div>
+                            <div><img src="image4.jpg"/></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="infosTemplate">
+    <div class="panel panel-default">
+        <div class="panel-heading panel-heading-gray">
+            <a href="#" class="btn btn-white btn-xs pull-right"><i class="fa fa-pencil"></i></a>
+            <i class="fa fa-info-circle"></i> Infos
+        </div>
+        <div class="panel-body white-back">
+            <ul class="list-unstyled profile-about">
+                <li>
+                    <div class="row">
+                        <div class="col-sm-4"><span class="text-muted">Né(e) le</span>
+                        </div>
+                        <div class="col-sm-8">12 January 1990</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="col-sm-4"><span class="text-muted">Fonction</span>
+                        </div>
+                        <div class="col-sm-8">Specialist</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="col-sm-4"><span class="text-muted">Entreprise</span>
+                        </div>
+                        <div class="col-sm-8">VellumList</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="col-sm-4"><span class="text-muted">Sexe</span>
+                        </div>
+                        <div class="col-sm-8">Male</div>
+                    </div>
+                </li>
+                <li>
+                    <div class="row">
+                        <div class="col-sm-4"><span class="text-muted">Ville</span>
+                        </div>
+                        <div class="col-sm-8">Rabat</div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</template>
+
+<template name="friendsTemplate">
+    <div class="panel panel-default">
+        <div class="panel-heading panel-heading-gray">
+            <i class="fa fa-user"></i> Collaborateurs
+        </div>
+        <div class="panel-body white-back">
+            <ul class="list-unstyled friends-list">
+                {{#each friendsList}}
+                    <li>
+                        {{#if this.cover}}
+                            <img src="{{this.cover}}" alt="" class="img-circle"/>
+                        {{else}}
+                            <img src="profile-picture.png" alt="" class="img-circle"/>
+                        {{/if}}
+                        <h5>{{this.username}}</h5>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>
+
+<template name="friendsRequests">
+    <div class="panel panel-default">
+        <div class="panel-heading panel-heading-gray">
+            <i class="fa fa-user"></i> Demandes d'amis
+        </div>
+        <div class="panel-body white-back">
+            <ul class="list-unstyled friends-list">
+                {{#each friendsRequests}}
+                    <li>
+                        {{#if requestedFriend.profile.cover}}
+                            <img src="{{requestedFriend.profile.cover}}" alt="" class="img-circle"/>
+                        {{else}}
+                            <img src="profile-picture.png" alt="" class="img-circle"/>
+                        {{/if}}
+                        <h5>{{requestedFriend.username}}</h5>
+                        <a href="#" class="btn btn-primary acceptFriend">Accepter <i
+                                class="fa fa-check-circle fa-fw"></i></a>
+                    </li>
+                {{/each}}
+            </ul>
+        </div>
+    </div>
+</template>
+
+<template name="profilePicModal">
+    <div class="modal" id="myProfilePicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Photo de Couverture</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row upload-row">
+                        <div class="col-md-4">
+                            <label for="input-2">Photo : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"
+                                     style="width: 200px; height: 150px;"></div>
+                                <div>
+                                    <span class="btn btn-default btn-file"><span
+                                            class="fileinput-new">Select image</span><input id="inputFileLien"
+                                                                                            type="file" class="file_bag"
+                                                                                            name="..."></span>
+                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>

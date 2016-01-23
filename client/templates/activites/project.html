@@ -1,0 +1,157 @@
+<template name="createProject">
+    {{#if currentUser}}
+        <div class="row-fluid">
+            <div class="col-md-12 demo-3">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <h3> Cr&eacute;er une Activit&eacute; </h3>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                   aria-expanded="true" aria-controls="collapseOne">
+                                    Information sur l'activit&eacute;
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                             aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <div class="col-md-12" style="margin-top:10px;">
+                                    <form>
+                                        <div class="col-md-offset-1 col-md-4">
+                                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"
+                                                     style="width: 200px; height: 150px;"></div>
+                                                <div>
+                                                    <span class="btn btn-default btn-file"><span
+                                                            class="fileinput-new">Changer l'image</span>
+                                                    <input id="upload1" type="file" class="file_bag"/></span>
+                                                    <a href="#" class="btn btn-default fileinput-exists"
+                                                       data-dismiss="fileinput">Supprimer</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-offset-1 col-md-4">
+                                            <div class="form-group">
+                                                <label for="inputType">Type de l'activit&eacute;</label>
+                                                <select id="type" name="type" class="form-control">
+                                                    <option value='' disabled selected style='display:none;'>Selectionner un type d'action
+                                                    </option>
+                                                    <option value="sensibilisation">Sensibilisation</option>
+                                                    <option value="formation">Formation</option>
+                                                    <option value="encadrement">Encadrement</option>
+                                                    <option value="foire">Foire</option>
+                                                    <option value="autre">Autre</option>
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputType">Titre de l'activit&eacute;</label>
+                                                <input type="text" class="form-control projectTitle">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="InputDescription">D&eacute;scription</label>
+                                                <textarea class="form-control projectDesc" rows="3"></textarea>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="action">Action</label>
+                                                <select id="action" name="action" class="form-control">
+                                                    <option value='' disabled selected style='display:none;'>
+                                                        Selectionner une action
+                                                    </option>
+                                                    {{#each actions}}
+                                                        <option value={{this._id}}>{{this.titre}}</option>
+                                                    {{/each}}
+                                                </select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="inputDate">Date</label>
+                                                <input type="text" class="form-control projectDate datetimepicker"
+                                                       id="datetimepicker" placeholder="Choisissez une Date">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="InputLocation">Lieu</label>
+                                                <input type="text" class="form-control projectLocation">
+                                            </div>
+                                            <div class="form-group">
+                                                <label for="InputBudget">Coût</label>
+                                                <input type="text" class="form-control projectDepense">
+                                            </div>
+
+
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {{>progressBarCr}}
+                    <button class="btn btn-success saveProject" style="float: right; margin-right: 50px;">Enregistrer
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+
+        {{>projectCreationScript}}
+    {{else}}
+        {{>login}}
+    {{/if}}
+
+</template>
+
+<template name="progressBarCr">
+    <div class="col-sm-2" style="float: right;">
+        <div class="progress" style="display: block; margin: 0 auto;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width:{{progress}}%;">
+                <span>{{progress}}% Complete</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="projectCreationScript">
+
+    <script type="text/javascript" src="../lib/modernizr.customGal.js"></script>
+    <script type="text/javascript" src="../lib/fileinput.js"></script>
+    <script type="text/javascript" src="../lib/fileinput_locale_fr.js"></script>
+    <!-- Initialize the MultiSelect plugin: -->
+    <script>
+        $(function () {
+            $("#upload_link1").on('click', function (e) {
+                e.preventDefault();
+                $("#upload1:hidden").trigger('click');
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#upload_link2").on('click', function (e) {
+                e.preventDefault();
+                $("#upload2:hidden").trigger('click');
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#upload_link3").on('click', function (e) {
+                e.preventDefault();
+                $("#upload3:hidden").trigger('click');
+            });
+        });
+    </script>
+
+</template>

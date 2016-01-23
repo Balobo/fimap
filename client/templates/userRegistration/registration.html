@@ -1,0 +1,43 @@
+<template name="registrationForm">
+
+    <div>
+        <div class="container">
+            <div class="login-logo">
+                <img src="fimaplogo.png" alt="FIMAP logo" style="max-height: 80px !important;"/>
+            </div>
+            <form class="form-login">
+                <h2 class="form-login-heading">Creer un compte</h2>
+
+                <div class="login-wrap">
+                    <input type="text" class="form-control email" placeholder="Email" autofocus>
+                    <br>
+                    <input type="text" class="form-control login" placeholder="Nom d'utilisateur" autofocus>
+                    <br>
+                    <input type="text" id="code" class="form-control code" placeholder="Code Administrateur" autofocus>
+                    <br>
+                    <select id="region" name="region" class="form-control" >
+                        <option value="1">Choisir une region</option>
+                        {{#each regions}}
+                            <option value={{this._id}}>{{this.nom}}</option>
+                        {{/each}}
+                    </select>
+                    <br>
+                    <input type="password" class="form-control password" placeholder="Mot de Passe">
+                    <br>
+                    <a href="#" class="btn btn-block login-button validRegistration"><i class="fa fa-lock"></i>Connexion</a>
+                    <hr>
+                    <div class="registration">
+                        Vous etes deja inscrit?<br/>
+                        <a class="" href="/login">
+                            Login
+                        </a>
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</template>

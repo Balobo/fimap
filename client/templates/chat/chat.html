@@ -1,0 +1,207 @@
+<template name="chat">
+    {{#if currentUser}}
+        <div class="row-fluid ">
+            <div class="col-md-12 msgList">
+                <div class="container-fluid">
+                    <div class="media messages-container chat-media">
+                        <div class="messages-list pull-left col-md-4">
+                            {{> sidebarChat }}
+                        </div>
+                        <div class="media-body">
+                            {{>chatInput}}
+                            {{>chatMessages}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{else}}
+        {{>login}}
+    {{/if}}
+</template>
+
+
+<template name="sidebarChat">
+    <div class="panel panel-default">
+        <ul class="list-group">
+            {{#each allUsers}}
+                <li class="list-group-item user" id="{{this._id}}">
+                    <a>
+                        <div class="media chat-media">
+                            {{#if profile.cover}}
+                                <img src="{{profile.cover}}" alt="profile Pic" class="img-circle user" width="60"/>
+                            {{else}}
+                                <img src="../iconuser.png" alt="profile Pic" class="img-circle user pull-left"
+                                     width="60"/>
+                            {{/if}}
+                            <div class="media-body">
+                                <span class="user"><a href="#"><strong>{{username}}</strong></a></span>
+                                {{#if profile.online}}
+                                    <span class="label label-success" style="float: right;">En ligne</span>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $(' .list-group-item').click(function () {
+                $(' .active').removeClass('active'); // remove the class from the currently selected
+                $(this).addClass('active'); // add the class to the newly clicked link
+                $("#divToHide").hide();
+            });
+            $("#showHidden").click(function(){
+                $("#divToHide").show();
+            });
+        });
+    </script>
+</template>
+
+<template name="chatInput">
+    <div class="panel panel-default share">
+        <div class="input-group">
+            <div class="input-group-btn">
+                <a class="btn btn-primary sendChat" href="#">
+                    <i class="fa fa-envelope"></i> Envoyer
+                </a>
+            </div>
+            <input id="message" type="text" class="form-control share-text" placeholder="message..."/>
+        </div>
+        <div class="row">
+            {{>progressBarChat}}
+            <div class="col-sm-4">
+                <a href="#" data-toggle="modal" data-target="#myFileModalChat" style="display: block; margin: 0 auto; margin-top: 6px;">
+                    <i class="glyphicon glyphicon-open-file"></i> Envoyer un document
+                </a>
+            </div>
+        </div>
+    </div>
+    {{>chatDocumentModal}}
+</template>
+
+<template name="chatDocumentModal">
+    <div class="modal" id="myFileModalChat" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Envoyer une pièce jointe</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row upload-row">
+                        <div class="col-md-4">
+                            <label for="input-2">Fichier : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="file" class="file file_bag" data-show-upload="true" data-show-caption="true">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="inputTitle">Titre du document : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="chatFileComment" type="text" class="form-control chatFileTitle">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary shareChatFile" data-dismiss="modal">
+                        Sauvegarder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
+
+<template name="progressBarChat">
+    <div class="col-sm-offset-4 col-sm-4">
+        <div class="progress" style="display: block; margin: 0 auto; margin-top: 6px;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width:{{progress}}%;">
+                <span>{{progress}}% Complete</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="chatMessages">
+    <div class="media chat-media">
+        {{#if msgs}}
+            {{#each msgs}}
+                {{#if isMsgOwner}}
+                    <div class="pull-right media-object">
+                        <a href="#">
+                            <img src="../iconuser.png" width="60" alt=""/>
+                        </a>
+                    </div>
+                    <div class="media-body message chatList">
+                        <div class="panel panel-default">
+                            <div class="panel-heading panel-heading-owner">
+                                <div class="pull-right">
+                                    <a href="#"><strong>{{name}}</strong></a>
+                                </div>
+                                <small class="text-muted">{{formatDate createdAt}}</small>
+                            </div>
+                            <div class="panel-body">
+                                {{#if text}}
+                                    {{text}}<br>
+                                {{/if}}
+                                {{#if file}}
+                                    <div class="col-sm-offset-4 col-sm-4">
+                                        <a href="{{file}}" target="_blank">
+                                            <img src="../file.jpg" alt="Fichier" class="fichier-travail" title="{{fileTitle}}">
+                                            <label style="display: block; margin: 0 auto;">{{fileTitle}}</label>
+                                        </a>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{else}}
+                    <div class="pull-left media-object">
+                        <a href="#">
+                            <img src="../iconuser.png" width="60" alt=""/>
+                        </a>
+                    </div>
+                    <div class="media-body message chatList">
+                        <div class="panel panel-default">
+                            <div class="panel-heading panel-heading-white">
+                                <div class="pull-right">
+                                    <small class="text-muted">{{formatDate createdAt}}</small>
+                                </div>
+                                <a href="#"><strong>{{name}}</strong></a>
+                            </div>
+                            <div class="panel-body">
+                                {{#if text}}
+                                    {{text}}<br>
+                                {{/if}}
+                                {{#if file}}
+                                    <div class="col-sm-offset-4 col-sm-4">
+                                        <a href="{{file}}" target="_blank">
+                                            <img src="../file.jpg" alt="Fichier" class="fichier-travail" title="{{fileTitle}}">
+                                            <label style="display: block; margin: 0 auto;">{{fileTitle}}</label>
+                                        </a>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                {{/if}}
+            {{/each}}
+        {{else}}
+            <p>Vous n'avez pas encore échangé de messages avec cet utilisateur!</p>
+        {{/if}}
+
+    </div>
+</template>
+

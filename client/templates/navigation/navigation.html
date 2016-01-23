@@ -1,0 +1,153 @@
+<template name="navigation">
+
+    {{#if currentUser}}
+        <!-- **********************************************************************************************************************************************************
+        TOP BAR CONTENT & NOTIFICATIONS
+        *********************************************************************************************************************************************************** -->
+        <!--header start-->
+        <header class="header black-bg">
+            <div class="sidebar-toggle-box">
+                <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+            </div>
+            <!--logo start-->
+            <a href="/journal" class="logo">
+                <b>
+                    <img class="imglogo" src="../fimaplogo.png" alt="FIMAP Logo"/>
+                </b>
+            </a>
+            <!--logo end-->
+            <div class="nav notify-row" id="top_menu">
+                <!--  notification start -->
+                <ul class="nav top-menu">
+                    <!-- settings start -->
+                    <li class="dropdown">
+                        <a data-toggle="dropdown" class="dropdown-toggle" href="index.html#">
+                            Notifications
+                            <!-- <span class="badge bg-theme">4</span>-->
+                        </a>
+                        <ul class="dropdown-menu extended tasks-bar">
+                            <div class="notify-arrow notify-arrow-green"></div>
+                            <li>
+                                <p class="green">Vous avez de nouvelles notifications</p>
+                            </li>
+                            {{#each recentNotif}}
+                                <li>
+                                    <a href="/notificationList">
+                                        <div class="task-info">
+                                            <div class="desc">{{this.notifUser.username}}</div>
+                                            <div class="desc">{{this.notifDesc}}</div>
+                                        </div>
+                                    </a>
+                                </li>
+                            {{/each}}
+                            <li class="external">
+                                <a href="/notificationList">Voir toutes les notifications</a>
+                            </li>
+                        </ul>
+                    </li>
+                    <!-- settings end -->
+                    <!-- inbox dropdown start-->
+                    <!-- inbox dropdown end -->
+                </ul>
+                <!--  notification end -->
+            </div>
+            <div class="top-menu">
+                <ul class="nav pull-right top-menu">
+                    <li><a class="logout" href="/">Se déconnecter</a></li>
+                </ul>
+            </div>
+        </header>
+        <!--header end-->
+
+        <!-- **********************************************************************************************************************************************************
+        MAIN SIDEBAR MENU
+        *********************************************************************************************************************************************************** -->
+        <!--sidebar start-->
+        <aside>
+            <div id="sidebar" class="nav-collapse">
+                <!-- sidebar menu start -->
+                <ul class="sidebar-menu scrollbar" id="nav-accordion">
+                    <h3 class="centered" style="color: #ffffff !important;">{{currentUser.username}}</h3>
+                    {{#if currentUser.profile.region}}
+                        <h4 class="centered">{{currentUser.profile.region.nom}}</h4>
+                    {{else}}
+                        <h4 class="centered">Admin FIMAP</h4>
+                    {{/if}}
+
+                    <li class="sub-menu">
+                        <a href="/journal">
+                            <i class="fa fa-home"></i>
+                            <span>Journal</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/adherents">
+                            <i class="fa fa-users"></i>
+                            <span>Gestion des Adherents</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/pageBudgets">
+                            <i class="fa fa-money"></i>
+                            <span>Gestion Budgetaire</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/actions">
+                            <i class="fa fa-hand-o-up"></i>
+                            <span>Plan d'actions</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/projectList">
+                            <i class="fa fa-university"></i>
+                            <span>Suivi des Activités</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/notification">
+                            <i class="fa fa-bullhorn"></i>
+                            <span>Declarer une notification</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/chat">
+                            <i class="fa fa-comments-o"></i>
+                            <span>Communication</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/statistics">
+                            <i class="fa fa-align-left fa-rotate-270"></i>
+                            <span>Statistiques</span>
+                        </a>
+                    </li>
+                    <li class="sub-menu">
+                        <a href="/reportings">
+                            <i class="fa fa-file-text-o"></i>
+                            <span>Reportings</span>
+                        </a>
+                    </li>
+                    {{#if currentUser.profile.region}}
+                    {{else}}
+                        <li class="sub-menu">
+                            <a href="/regions">
+                                <i class="fa fa-map-marker"></i>
+                                <span>Fiche Region</span>
+                            </a>
+                        </li>
+                    {{/if}}
+                    <li class="sub-menu">
+                        <a href="/bibliotheque">
+                            <i class="fa fa-rss"></i>
+                            <span>Bibliothèque</span>
+                        </a>
+                    </li>
+                </ul>
+                <!-- sidebar menu end-->
+            </div>
+        </aside>
+        <!--sidebar end-->
+    {{/if}}
+
+</template>

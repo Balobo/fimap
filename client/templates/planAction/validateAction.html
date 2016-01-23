@@ -1,0 +1,80 @@
+<template name="validateAction">
+
+        {{#if currentUser}}
+
+            <form class="form-horizontal">
+                <div class="col-md-8">
+                    <fieldset>
+
+                        <!-- Form Name -->
+                        <legend>Valider action</legend>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="nom">Titre de l'action  <strong>*</strong> </label>
+
+                            <div class="col-md-4">
+                                <input id="titre" name="titre" type="text" placeholder="titre de l'action"
+                                       class="form-control input-md" required="" readonly >
+                            </div>
+                        </div>
+
+                        <!-- Text input-->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="budget">Budget demande <strong>*</strong> </label>
+
+                            <div class="col-md-4">
+                                <input id="budget" name="budget" type="text" placeholder="Budget demande"
+                                       class="form-control input-md" required="" readonly>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="lieux">Lieux <strong>*</strong> </label>
+
+                            <div class="col-md-4">
+                                <input id="lieux" name="lieux" type="text" placeholder="Lieux de l'action"
+                                       class="form-control input-md" required="" readonly>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="lieux">Date prevue <strong>*</strong> </label>
+
+                            <div class="col-md-4">
+                                <input id="date" name="date" type="text" placeholder="Date prevue"
+                                       class="form-control input-md datetimepicker" readonly>
+                            </div>
+                        </div>
+
+
+                        <!-- Textarea -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="desc">Description</label>
+
+                            <div class="col-md-4">
+                                <textarea class="form-control" rows="5" id="desc" name="desc" readonly></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Button -->
+                        <div class="form-group">
+                            <label class="col-md-4 control-label" for="Valider"></label>
+
+                            <div class="col-md-4">
+                                <a class="btn btn-success validateAction">Valider Action</a>
+                            </div>
+                        </div>
+
+                    </fieldset>
+                </div>
+            </form>
+
+
+        {{else}}
+            {{>login}}
+        {{/if}}
+
+
+</template>

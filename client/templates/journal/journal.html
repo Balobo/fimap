@@ -1,0 +1,106 @@
+<template name="journal">
+    {{#if currentUser}}
+        <div class="row-fluid">
+            <div class="col-md-12">
+                <ul class="timeline-list">
+                    <li class="media no-margin-top" style="border: none">
+                        <div class="media-body">
+                            <div class="row-journal">
+                                <div class="col-md-10 col-lg-8">
+                                    <div class="panel-journal panel-journal-default share">
+                                        <div class="panel-heading panel-heading-gray title">
+                                            <p class="post-text">Quoi de nouveau ?</p>
+                                        </div>
+                                        <div class="panel-body">
+                                            <textarea id="posttext" name="posttext"
+                                                      class="form-control share-text posttext" rows="3"
+                                                      placeholder="Partagez votre Statut..."></textarea>
+                                        </div>
+                                        <div class="panel-journal-footer share-buttons">
+                                            <a href="#" data-toggle="modal" data-target="#myPicModalJ" style="float: left;">
+                                                <i class="glyphicon glyphicon-picture"></i>
+                                            </a>
+                                            {{>progressBar6}}
+                                            <button class="btn-journal btn-primary-journal btn-xs-journal pull-right display-none submitPost"
+                                                    href="#">Publier
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+                        {{>journalPicModal}}
+                    </li>
+                    {{#each posts}}
+                        {{>post}}
+                    {{/each}}
+                </ul>
+            </div>
+        </div>
+    {{else}}
+        {{>login}}
+    {{/if}}
+</template>
+
+<template name="progressBar6">
+    <div class="col-sm-4">
+        <div class="progress" style="display: block; margin: 0 auto; margin-top: 6px;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width:{{progress}}%;">
+                <span>{{progress}}% Complete</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="journalPicModal">
+    <div class="modal" id="myPicModalJ" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Photo de Couverture</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row upload-row">
+                        <div class="col-md-4">
+                            <label for="input-2">Photo : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"
+                                     style="width: 200px; height: 150px;"></div>
+                                <div>
+                                    <span class="btn btn-default btn-file"><span
+                                            class="fileinput-new">Changer l'image</span>
+                                        <input id="upload1" type="file" class="file_bag"/></span>
+                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="inputTitle">Statut : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control postPicStatus">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary sharePostPicture" data-dismiss="modal">
+                        Sauvegarder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>

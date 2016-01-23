@@ -1,0 +1,61 @@
+<template name="statistics">
+    {{#if currentUser}}
+        <h3><i class="fa fa-angle-right"></i> Statistiques</h3>
+
+        <div class="row mt">
+            <div class="content-panel col-lg-12">
+                <div class="row">
+                    <div class="col-md-6" style="text-align: center;">
+                        <h4>Nombre de ruches par région</h4>
+                        <canvas id="myChart" width="300" height="300"></canvas>
+                    </div>
+                    <div class="col-md-6" style="text-align: center;">
+                        <h4>Nombre d'adhérents par région</h4>
+                        <canvas id="myChart4" width="300" height="300"></canvas>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-6 col-md-offset-3" style="text-align: center;">
+                        <h4>Nombre d'activités par région</h4>
+                        <canvas id="myChart3" width="300" height="300"></canvas>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-10" style="text-align: center;">
+                        <h4>Nombre d'adhérents par Tranche d'age</h4>
+                        <canvas id="myChart5" width="800" height="500" style="margin: 0 auto;"></canvas>
+                    </div>
+                    <div class="col-md-2" style="text-align: center;">
+                        <div class="row">
+                            <span class="label" style="background-color: #DCDCDC;">Jeunes (- 35 ans)</span>
+                        </div>
+                        <div class="row">
+                            <span class="label" style="background-color: #97BBCD;">Seniors</span>
+                        </div>
+                    </div>
+
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-md-10" style="text-align: center;">
+                        <h4>Nombre d'adhérents par Genre</h4>
+                        <canvas id="myChart2" width="800" height="500" style="margin: 0 auto;"></canvas>
+                    </div>
+                    <div class="col-md-2" style="text-align: center;">
+                        <div class="row">
+                            <span class="label" style="background-color: #46BFBD;">Hommes</span>
+                        </div>
+                        <div class="row">
+                            <span class="label" style="background-color: #FF5A5E;">Femmes</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {{else}}
+        {{>login}}
+    {{/if}}
+</template>

@@ -1,0 +1,41 @@
+<template name="editCommune">
+
+    {{#if currentUser}}
+
+        <form class="form-horizontal">
+            <div class="col-md-8" style="margin-bottom: 5%">
+                <fieldset>
+
+                    <!-- Form Name -->
+                    <legend>Modifier une Commune</legend>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="nom">Nom de la commune <strong>*</strong> </label>
+
+                        <div class="col-md-4">
+                            <input id="nom" type="text" placeholder="Nom de la commune"
+                                   class="form-control input-md" required="">
+                        </div>
+
+                        <div class="col-md-3">
+                            <a class="btn btn-success updateCommune">Mettre a jour</a>
+                        </div>
+                    </div>
+
+
+
+
+                </fieldset>
+            </div>
+        </form>
+
+
+    {{else}}
+        {{>login}}
+    {{/if}}
+
+
+</template>
+
+

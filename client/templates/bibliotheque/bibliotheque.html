@@ -1,0 +1,115 @@
+<template name="bibliotheque">
+    {{#if currentUser}}
+        <h3><i class="fa fa-angle-right"></i> Bibliothèque</h3>
+
+        <div class="row mt">
+            <div class="col-lg-12">
+                {{#if currentUser.profile.region}}
+                {{else}}
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <a href="#" class="btn btn-info" data-toggle="modal" data-target="#myDocumentModal"
+                               style="margin-bottom: 10px;">
+                                <i class="glyphicon glyphicon-open-file"></i> Ajouter un document
+                            </a>
+                        </div>
+                        {{>progressBarBiblio}}
+                        {{>documentModal}}
+                    </div>
+                {{/if}}
+                <div class="content-panel row">
+                    {{#each documents}}
+                        {{>documentBiblio}}
+                    {{else}}
+                        Il n'y a aucun document dans la Bibliothèque
+                    {{/each}}
+                </div>
+            </div>
+        </div>
+        <input hidden="true" id="testRemove">
+        <script>
+            function attentionDoc() {
+                resultat = window.confirm('Attention, vous êtes sur le point de supprimer un document, voulez-vous continuer ?');
+                if (resultat == 1) {
+                    $('#testRemove').val(null);
+                }
+                else {
+                    $('#testRemove').val("yes");
+                    return false;
+                }
+            }
+        </script>
+    {{else}}
+        {{>login}}
+    {{/if}}
+</template>
+
+<template name="documentBiblio">
+    <div class="col-sm-2" style="padding: 4px;">
+        <div class="filePanel">
+            <div class="row">
+                <a href="#" style="float: right;">
+                    <span class="glyphicon glyphicon-remove-circle removeDoc" onclick="return attentionDoc();" aria-hidden="true"></span>
+                </a>
+            </div>
+            <div class="row">
+                <a href="{{this.file}}" title="{{this.fileTitle}}" target="_blank">
+                    <img src="../file.jpg" alt="Fichier de Travail" class="fichier-travail">
+                    <label style="display: block; margin: 0 auto;">{{this.fileTitle}}</label>
+                </a>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="documentModal">
+    <div class="modal" id="myDocumentModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Ajouter un Document à la bibliothèque</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row upload-row">
+                        <div class="col-md-4">
+                            <label for="input-2">Document : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="file" class="file file_bag" data-show-upload="true" data-show-caption="true">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="inputTitle">Titre du document : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="fileTitle" type="text" class="form-control fileTitle">
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary uploadFile" data-dismiss="modal">
+                        Sauvegarder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
+
+<template name="progressBarBiblio">
+    <div class="col-sm-2">
+        <div class="progress" style="display: block; margin: 0 auto; margin-top: 6px;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width:{{progress}}%;">
+                <span>{{progress}}% Complete</span>
+            </div>
+        </div>
+    </div>
+</template>

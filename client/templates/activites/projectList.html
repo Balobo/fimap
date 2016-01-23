@@ -1,0 +1,111 @@
+<template name="projectList">
+    {{#if currentUser}}
+        <div class="row-fluid">
+            <div class="col-md-12 demo-3">
+
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-offset-5 col-md-2">
+                                <div class="col-md-6">
+                                    <a class="btn btn-default btn-primary-journal pull-right" href="/projectSearch"
+                                       role="button"><span
+                                            class="glyphicon glyphicon-search" aria-hidden="true"></span></a>
+                                </div>
+                                {{#if currentUser.profile.region}}
+                                    <div class="col-md-6">
+                                        <a class="btn btn-default btn-primary-journal" href="/createProject"
+                                           role="button"><span aria-label="test"
+                                                               class="glyphicon glyphicon-plus"
+                                                               aria-hidden="true"></span></a>
+                                    </div>
+                                {{/if}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{#if currentUser.profile.region}}
+                    <div class="row grid" style="margin: auto !important;">
+                        {{#each projectArray}}
+                            {{>projectView}}
+                        {{/each}}
+                    </div>
+                {{else}}
+                    {{>adminProjectsView}}
+                {{/if}}
+            </div>
+        </div>
+    {{else}}
+        {{>login}}
+    {{/if}}
+
+</template>
+
+<template name="adminProjectsView">
+    <div class="col-lg-12 accordion-container">
+        <div class="content-panel actionsContentPanel">
+            <h4><i class="fa fa-angle-right"></i> Liste des Activités par Région</h4>
+            <hr>
+            <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                {{#each region}}
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="heading{{_id}}">
+                            <h4 class="panel-title">
+                                <a data-toggle="collapse" data-parent="#accordion"
+                                   href="#{{_id}}" aria-expanded="false" aria-controls="{{_id}}">
+                                    {{nom}} <span class="badge">{{projectsCount}}</span>
+                                </a>
+                            </h4>
+                        </div>
+                        <div id="{{_id}}" class="panel-collapse collapse" role="tabpanel"
+                             aria-labelledby="{{_id}}">
+                            <div class="panel-body">
+                                {{#each activites}}
+                                    {{>projectView}}
+                                {{else}}
+                                    <p>Aucune activité pour cette action</p>
+                                {{/each}}
+                            </div>
+                        </div>
+                    </div>
+                {{/each}}
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="projectView">
+
+    <div class="col-md-3 view view-first thumbnail">
+        <img src="{{projectCover}}" alt="cover activite">
+
+        <div class="mask">
+            <h2><a href="/project/{{this._id}}" class="info">{{projectType}}</a></h2>
+            <a href="#">
+                <span class="glyphicon glyphicon-remove-circle removeProject" aria-hidden="true"
+                      onclick="return attention();"></span>
+            </a>
+
+            <p>{{projectDesc}}</p>
+
+        </div>
+    </div>
+    <input hidden="true" id="testRemove">
+
+    <script>
+        function attention() {
+            resultat = window.confirm('Attention, vous êtes sur le point de supprimer une activité, voulez-vous continuer ?');
+            if (resultat == 1) {
+                $('#testRemove').val(null);
+            }
+            else {
+                $('#testRemove').val("yes");
+                return false;
+            }
+        }
+    </script>
+
+</template>
+

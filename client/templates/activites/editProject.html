@@ -1,0 +1,515 @@
+<template name="editProject">
+    {{#if currentUser}}
+        {{#each currProjectObject}}
+            <div class="fixedBodyContainer" style="margin-top: 3%">
+                <div class="row-fluid">
+                    <div class="col-md-12 demo-3">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h3> {{projectType}} </h3>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <h4 class="panel-title">
+                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne"
+                                           aria-expanded="true" aria-controls="collapseOne">
+                                            D&eacute;finition de l'activit&eacute;
+                                        </a>
+                                        {{>progressBar}}
+                                    </h4>
+                                </div>
+                                <div id="collapseOne" class="panel-collapse collapse in" role="tabpanel"
+                                     aria-labelledby="headingOne">
+                                    <div class="panel-body">
+                                        <div class="col-md-12" style="margin-top:10px;">
+                                            {{#if currentUser.profile.region}}
+                                                {{>regionForm}}
+                                            {{else}}
+                                                {{>adminForm}}
+                                            {{/if}}
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingTwo">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                                            Photos de l'activit&eacute;
+                                        </a>
+                                        {{>progressBar2}}
+                                    </h4>
+                                </div>
+                                <div id="collapseTwo" class="panel-collapse collapse" role="tabpanel"
+                                     aria-labelledby="headingTwo">
+                                    <div class="panel-body">
+                                        <div class="row grid cs-style-3">
+                                            {{#each currProjectPics}}
+                                                {{>projectPicture}}
+                                            {{else}}
+                                                <p>Aucune photo n'est disponible pour cette activité</p>
+                                            {{/each}}
+                                            {{#if currentUser.profile.region}}
+                                                <div class="col-md-3 col-projet-pic">
+                                                    <a href="" id="upload_picture" data-toggle="modal"
+                                                       data-target="#myPicModal">
+                                                        <div class="thumbnail project-pic">
+                                                            <img src="../add-picture.png" alt="Ajouter une Photo">
+                                                        </div>
+                                                    </a>
+                                                    {{>addProjectModalPic}}
+                                                </div>
+                                            {{/if}}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingThree">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapseThree" aria-expanded="false"
+                                           aria-controls="collapseThree">
+                                            Factures et Justificatifs
+                                        </a>
+                                        {{>progressBar3}}
+                                    </h4>
+                                </div>
+                                <div id="collapseThree" class="panel-collapse collapse" role="tabpanel"
+                                     aria-labelledby="headingThree">
+                                    <div class="panel-body">
+                                        {{#each currProjectFiles}}
+                                            {{>projectFile}}
+                                        {{else}}
+                                            <div class="row grid cs-style-3">
+                                                <p>Aucun document n'est disponible pour cette activité</p>
+                                            </div>
+                                        {{/each}}
+                                        {{#if currentUser.profile.region}}
+                                            <div class="col-md-2">
+                                                <a href="" id="upload_file" data-toggle="modal"
+                                                   data-target="#myFileModal">
+                                                    <img src="../add-file.png" alt="Ajouter un fichier"
+                                                         class="fichier-travail add-file-pad" style="max-width: 100%;">
+                                                </a>
+                                                {{>addProjectModalFile}}
+                                            </div>
+                                        {{/if}}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading" role="tab" id="headingFour">
+                                    <h4 class="panel-title">
+                                        <a class="collapsed" data-toggle="collapse" data-parent="#accordion"
+                                           href="#collapseFour" aria-expanded="false"
+                                           aria-controls="collapseFour">
+                                            Suivi du Marché
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="collapseFour" class="panel-collapse collapse" role="tabpanel"
+                                     aria-labelledby="headingFour">
+                                    <div class="panel-body">
+                                        Suivi marché
+                                    </div>
+                                </div>
+                            </div>
+                            {{#if currentUser.profile.region}}
+                                <button class="btn btn-success updateProject" style="float: right; margin-right: 50px;">
+                                    Mettre à jour
+                                </button>
+                            {{/if}}
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            {{>projectCreationScript}}
+
+        {{/each}}
+
+    {{else}}
+        {{>login}}
+    {{/if}}
+
+</template>
+
+<template name="adminForm">
+    <form>
+        <div class="col-md-offset-1 col-md-4">
+            <div class="fileinput fileinput-new">
+                <div class="thumbnail" style="width: 200px; height: 150px;"><img
+                        src="{{projectCover}}"></div>
+            </div>
+        </div>
+        <div class="col-md-offset-1 col-md-4">
+            <div class="form-group">
+                <label for="inputType">Type de l'activit&eacute;</label>
+                <select id="type" name="type" class="form-control input-md" disabled>
+                    <option {{selectedIfEquals currentActiviteType 'sensibilisation' }}
+                            value="sensibilisation">Sensibilisation
+                    </option>
+                    <option {{selectedIfEquals currentActiviteType 'formation' }} value="formation">
+                        Formation
+                    </option>
+                    <option {{selectedIfEquals currentActiviteType 'encadrement' }} value="encadrement">
+                        Encadrement
+                    </option>
+                    <option {{selectedIfEquals currentActiviteType 'foire' }} value="foire">Foire</option>
+                    <option {{selectedIfEquals currentActiviteType 'autre' }} value="autre">Autre</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputType">Titre de l'activit&eacute;</label>
+                <input type="text" class="form-control projectTitle" disabled>
+            </div>
+            <div class="form-group">
+                <label for="InputDescription">D&eacute;scription de
+                    l'activit&eacute;</label>
+                <textarea class="form-control projectDesc" rows="3" disabled></textarea>
+            </div>
+            <div class="form-group">
+                <label for="action">Action</label>
+                <select id="action" name="action" class="form-control" disabled>
+                    {{#each adminActions}}
+                        <option {{selectedIfEquals ../attachedAction._id this._id }}
+                                value={{this._id}}>{{this.titre}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputDate">Date de l'activit&eacute;</label>
+                <input type="text"
+                       class="form-control projectDate datetimepicker"
+                       id="inputDate" placeholder="Choisissez une Date" disabled>
+            </div>
+            <div class="form-group">
+                <label for="InputLocation">Lieu</label>
+                <input type="text" class="form-control projectLocation" disabled>
+            </div>
+            <div class="form-group">
+                <label for="InputBudget">Coût</label>
+                <input type="text" class="form-control projectDepense" disabled>
+            </div>
+
+        </div>
+    </form>
+</template>
+
+<template name="regionForm">
+    <form>
+        <div class="col-md-offset-1 col-md-4">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+                <div class="fileinput-preview thumbnail"
+                     data-trigger="fileinput"
+                     style="width: 200px; height: 150px;"><img
+                        src="{{projectCover}}"></div>
+                <div>
+                    <input id="upload1" type="file" class="file_bag"/>
+                    <a href="#" class="btn btn-default fileinput-exists"
+                       data-dismiss="fileinput">Supprimer</a>
+                </div>
+            </div>
+            {{>addProjectModalCover}}
+        </div>
+        <div class="col-md-offset-1 col-md-4">
+            <div class="form-group">
+                <label for="inputType">Type de l'activit&eacute;</label>
+                <select id="type" name="type" class="form-control input-md">
+                    <option {{selectedIfEquals currentActiviteType 'sensibilisation' }}
+                            value="sensibilisation">Sensibilisation
+                    </option>
+                    <option {{selectedIfEquals currentActiviteType 'formation' }} value="formation">
+                        Formation
+                    </option>
+                    <option {{selectedIfEquals currentActiviteType 'encadrement' }} value="encadrement">
+                        Encadrement
+                    </option>
+                    <option {{selectedIfEquals currentActiviteType 'foire' }} value="foire">Foire</option>
+                    <option {{selectedIfEquals currentActiviteType 'autre' }} value="autre">Autre</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputType">Titre de l'activit&eacute;</label>
+                <input type="text" class="form-control projectTitle">
+            </div>
+            <div class="form-group">
+                <label for="InputDescription">D&eacute;scription de l'activit&eacute;</label>
+                <textarea class="form-control projectDesc" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label for="action">Action</label>
+                <select id="action" name="action" class="form-control">
+                    {{#each actions}}
+                        <option {{selectedIfEquals ../attachedAction._id this._id }}
+                                value={{this._id}}>{{this.titre}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="inputDate">Date de l'activit&eacute;</label>
+                <input type="text"
+                       class="form-control projectDate datetimepicker"
+                       id="inputDate" placeholder="Choisissez une Date">
+            </div>
+            <div class="form-group">
+                <label for="InputLocation">Lieu</label>
+                <input type="text" class="form-control projectLocation">
+            </div>
+            <div class="form-group">
+                <label for="InputBudget">Coût</label>
+                <input type="text" class="form-control projectDepense">
+            </div>
+        </div>
+    </form>
+</template>
+
+<template name="progressBar">
+    <div class="col-sm-2" style="float: right;">
+        <div class="progress" style="display: block; margin: 0 auto;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width:{{progress}}%;">
+                <span>{{progress}}% Complete</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="progressBar2">
+    <div class="col-sm-2" style="float: right;">
+        <div class="progress" style="display: block; margin: 0 auto;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width:{{progress}}%;">
+                <span>{{progress}}% Complete</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="progressBar3">
+    <div class="col-sm-2" style="float: right;">
+        <div class="progress" style="display: block; margin: 0 auto;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width:{{progress}}%;">
+                <span>{{progress}}% Complete</span>
+            </div>
+        </div>
+    </div>
+</template>
+
+
+<template name="projectPicture">
+    <div class="col-md-3 col-projet-pic">
+        <figure class="thumbnail thumb-pic removeData">
+            <img src="{{this.projectPictureUrl}}" class="removeData" alt="img02">
+            <figcaption style="padding: 5px 10px 5px 10px !important;">
+                <h3>{{this.projectPictureTitle}}</h3>
+                <a href="#">
+                    <span class="glyphicon glyphicon-remove-circle removeProjectPic" aria-hidden="true"></span>
+                </a>
+            </figcaption>
+        </figure>
+    </div>
+</template>
+
+<template name="projectFile">
+    <div class="col-sm-2">
+        <a href="{{this.projectFileUrl}}" title="{{this.projectFileTitle}}"
+           target="_blank">
+            <img src="../file.jpg" alt="Fichier de Travail" class="fichier-travail">
+            <label style="display: block; margin: 0 auto;">{{this.projectFileTitle}}</label>
+        </a>
+    </div>
+</template>
+
+<template name="addProjectModalCover">
+    <div class="modal" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Photo de Couverture</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row upload-row">
+                        <div class="col-md-4">
+                            <label for="input-2">Photo : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input id="input-2" type="file" class="file" multiple="true" data-show-upload="false"
+                                   data-show-caption="true">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="inputTitle">Titre : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control" id="inputTitle">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="inputDesc">Description :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <textarea class="form-control" rows="3" id="inputDesc"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary">Sauvegarder</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<template name="addProjectModalPic">
+
+    <div class="modal" id="myPicModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Ajouter une photo du projet</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row upload-row">
+                        <div class="col-md-4">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <div class="fileinput-preview thumbnail" data-trigger="fileinput"
+                                     style="width: 200px; height: 150px;"></div>
+                                <div>
+                                    <input id="upload1" type="file" class="file_bag1"/>
+                                    <a href="#" class="btn btn-default fileinput-exists"
+                                       data-dismiss="fileinput">Supprimer</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <div class="row">
+                                <input type="text" class="form-control projectPictureTitle" placeholder="Titre...">
+                            </div>
+                            <div class="row">
+                                <textarea class="form-control projectPictureDesc" rows="3"
+                                          placeholder="Description..."></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary uploadProjectPicture" data-dismiss="modal">
+                        Sauvegarder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
+
+<template name="addProjectModalFile">
+
+
+    <div class="modal" id="myFileModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Ajouter un fichier à votre projet</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row upload-row">
+                        <div class="col-md-4">
+                            <label for="input-2">Fichier : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="file" class="file file_bag3" data-show-upload="true" data-show-caption="true">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="inputTitle">Titre : </label>
+                        </div>
+                        <div class="col-md-8">
+                            <input type="text" class="form-control projectFileTitle">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <label for="inputDesc">Description :</label>
+                        </div>
+                        <div class="col-md-8">
+                            <textarea class="form-control projectFileDesc" rows="3"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+                    <button type="button" class="btn btn-primary uploadProjectFile" data-dismiss="modal">
+                        Sauvegarder
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</template>
+
+
+<template name="projectEditionScript">
+
+    <script type="text/javascript" src="../lib/modernizr.customGal.js"></script>
+    <script type="text/javascript" src="../lib/fileinput.js"></script>
+    <script type="text/javascript" src="../lib/fileinput_locale_fr.js"></script>
+    <!-- Initialize the MultiSelect plugin: -->
+    <script>
+        $(function () {
+            $("#upload_link1").on('click', function (e) {
+                e.preventDefault();
+                $("#upload1:hidden").trigger('click');
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#upload_link2").on('click', function (e) {
+                e.preventDefault();
+                $("#upload2:hidden").trigger('click');
+            });
+        });
+    </script>
+    <script>
+        $(function () {
+            $("#upload_link3").on('click', function (e) {
+                e.preventDefault();
+                $("#upload3:hidden").trigger('click');
+            });
+        });
+    </script>
+
+</template>

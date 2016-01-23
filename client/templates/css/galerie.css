@@ -1,0 +1,63 @@
+.thumbnail:hover {
+}
+
+.thumbnail {
+  overflow: hidden;
+  background-color: transparent !important;
+  height : 150px !important;
+  max-width : 100% !important;
+  box-shadow: #787878 3px 3px 3px !important;
+  border : 1px solid;
+}
+
+.thumbnail > img.gal, .thumbnail a > img.gal {
+  max-width: none !important;
+  position: absolute !important;
+  left: 50% !important;
+  top: 50% !important;
+  height: 100% !important;
+  width: auto !important;
+  -webkit-transform: translate(-50%,-50%) !important;
+      -ms-transform: translate(-50%,-50%) !important;
+          transform: translate(-50%,-50%) !important;
+}
+
+.thumbnail img.portrait {
+  width: 100%;
+  height: auto;
+}
+
+.col-md-3 {
+  padding-right: 3px !important;
+  padding-left: 3px !important;
+}
+
+.btn{
+  font-weight: bold !important;
+}
+
+.btn-add{
+  float: right !important;
+  background-color: #889A66 !important;
+}
+
+.commentsArea{
+	background-color: #DCDCDC;
+	margin-top: 5px;
+	padding: 5px;
+}
+
+.likesArea{
+	background-color: #DCDCDC;
+	margin-top: 10px;
+	padding: 5px;
+}
+
+.galerieHr {
+  margin-top: 0px;
+  margin-bottom: 0px;
+}
+
+
+
+

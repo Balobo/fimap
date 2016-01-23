@@ -1,0 +1,104 @@
+<template name="editProvince">
+
+    {{#if currentUser}}
+
+        <form class="form-horizontal row">
+            <div class="col-md-12" style="margin-bottom: 5%">
+                <fieldset>
+                    <!-- Form Name -->
+                    <legend>Editer la Province</legend>
+
+                    <!-- Text input-->
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="nom">Nom de la Province <strong>*</strong> </label>
+
+                        <div class="col-md-4">
+                            <input id="nom" type="text" placeholder="Nom de la Province"
+                                   class="form-control input-md" required="">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="col-md-3 control-label" for="codeProvince">Code Province <strong>*</strong> </label>
+
+                        <div class="col-md-4">
+                            <input id="codeProvince" type="number" placeholder="Code de la Province"
+                                   class="form-control input-md" required="">
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <a class="btn btn-success updateProvince">Mettre a jour</a>
+                    </div>
+                </fieldset>
+            </div>
+        </form>
+        <hr>
+        {{>createCommune}}
+    {{else}}
+        {{>login}}
+    {{/if}}
+</template>
+
+<template name="createCommune">
+    <form class="form-horizontal row">
+        <div class="col-md-6">
+            <fieldset>
+
+                <!-- Form Name -->
+                <legend>Ajouter une Commune à cette Province</legend>
+
+                <!-- Text input-->
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Nom de la Commune <strong>*</strong> </label>
+
+                    <div class="col-md-4">
+                        <input id="commune" type="text" placeholder="Nom de la commune"
+                               class="form-control input-md" required="">
+                    </div>
+
+                    <div class="col-md-2">
+                        <a class="btn btn-success valider">Valider</a>
+                    </div>
+                </div>
+
+                <!-- Button -->
+
+
+            </fieldset>
+        </div>
+
+        <div class="col-md-6">
+            <div class="content-panel">
+                <h4><i class="fa fa-angle-right"></i> Liste des communes de cette Province</h4>
+                <hr>
+                <table class="table table-striped table-advance table-hover" style="max-height: 1%">
+                    <thead>
+                    <tr>
+                        <th>Nom Commune</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {{#each communes}}
+                        <tr style="max-height: 5%">
+                            <td><a href="/commune/{{this._id}}"> {{this.nom}}</a></td>
+                            <td style="float: right;">
+                                <a href="/commune/{{this._id}}" class="btn btn-primary btn-xs"><i
+                                        class="fa fa-pencil"></i></a>
+                                <a class="btn btn-danger btn-xs removeCommune"><i
+                                        class="fa fa-trash-o "></i></a>
+                            </td>
+                        </tr>
+                    {{/each}}
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </form>
+
+
+</template>
+
+

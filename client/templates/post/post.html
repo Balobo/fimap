@@ -1,0 +1,81 @@
+<template name="post">
+    <li class="media" style="border: none">
+        <div class="pull-left">
+            <div class="date">
+                <div class="username"><a>{{username}}</a></div>
+                <!--{{date.getUTCDate}}-{{date.getUTCMonth}}-{{date.getUTCFullYear}}-->
+                {{formatDate date}}
+            </div>
+
+            {{#if profile.cover}}
+                <img src="{{profile.cover}}" alt="profile Pic" class="img-circle" width="60"
+                     data-src="holder.js/64x64"/>
+            {{else}}
+                <img src="../iconuser.png" alt="profile Pic" class="img-circle" width="60"
+                     data-src="holder.js/64x64"/>
+            {{/if}}
+        </div>
+        <div class="media-body">
+            <div class="panel-journal panel-journal-default">
+                <div class="panel-body">
+                    {{#if isActivite}}
+                        <p class="post-text"><a href="/project/{{attachedObject}}">{{attachedObjectType}}</a></p>
+                    {{else}}
+                        <p class="post-text">{{text}}</p>
+                    {{/if}}
+
+                    {{#if postPicUrl}}
+                        <img src="{{postPicUrl}}" class="img-responsive">
+                    {{/if}}
+                    <div class="row">
+                        <a href="#" class="like-zone likePost">Approuver</a>
+                    </div>
+                </div>
+                {{#if likeCount}}
+
+                    <div class="view-all-comments">
+                        {{#if likeThis}}
+                            <span class="badge badge-success">{{likeThis}}</span>
+                        {{/if}}
+                        <a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> {{likeCount}} approuvent</a></div>
+                {{else}}
+                    <div class="view-all-comments"><a href="#"><i class="glyphicon glyphicon-thumbs-up"></i> 0
+                        approuvent</a></div>
+                {{/if}}
+                <ul class="comments">
+                    {{#each postComments}}
+                        {{>postcomment}}
+                    {{/each}}
+                    <li class="comment-form">
+                        <div class="input-group">
+                            <input type="text" class="form-control comment" id="comment" placeholder="Commentez..."/>
+                            <span class="input-group-addon">
+								<a href=""><i class="glyphicon glyphicon-comment"></i></a>
+							</span>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </li>
+</template>
+<template name="postcomment">
+    <li>
+        <div class="media no-media">
+            <a href="#" class="pull-left">
+                {{#if profile.cover}}
+                    <img src="{{profile.cover}}" class="media-object smallProfilePic">
+                {{else}}
+                    <img src="../iconuser.png" class="media-object smallProfilePic">
+                {{/if}}
+            </a>
+
+            <div class="media-body">
+                <a href="#" class="comment-author commentUser">{{username}}</a>
+                <span class="comment-body commentText">{{text}}</span>
+
+                <div class="comment-date"><!--{{date.getUTCDate}}-{{date.getUTCMonth}}--> {{formatDate date}}</div>
+            </div>
+        </div>
+    </li>
+</template>

@@ -1,0 +1,75 @@
+<template name="editDepense">
+    {{#if currentUser}}
+        <h3><i class="fa fa-angle-right"></i> Modifier une dépense</h3>
+
+        <form>
+            <div class="col-md-offset-1 col-md-6">
+                <div class="form-group">
+                    <label for="type">Type de Dépense<strong>*</strong></label>
+                    <select id="type" name="type" class="form-control input-md">
+                        <option {{selectedIfEquals currentDepenseType 'eau' }} value="eau">Eau</option>
+                        <option {{selectedIfEquals currentDepenseType 'electricite' }} value="electricite">Electricité
+                        </option>
+                        <option {{selectedIfEquals currentDepenseType 'loyer' }} value="loyer">Loyer</option>
+                        <option {{selectedIfEquals currentDepenseType 'deplacement' }} value="deplacement">Déplacement
+                        </option>
+                        <option {{selectedIfEquals currentDepenseType 'achat' }} value="achat">Achat Materiel</option>
+                        <option {{selectedIfEquals currentDepenseType 'autre' }} value="autre">Autre</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="InputDescription">D&eacute;scription</label>
+                    <textarea id="InputDescription" class="form-control depenseDesc" rows="3"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="inputDate">Date de dépense<strong>*</strong></label>
+                    <input type="text"
+                           class="form-control depenseDate datetimepicker"
+                           id="inputDate" placeholder="Choisissez une Date">
+                </div>
+                <div class="form-group">
+                    <label for="InputLocation">Lieu</label>
+                    <input id="InputLocation" type="text" class="form-control depenseLocation">
+                </div>
+                <div class="form-group">
+                    <label for="InputBudget">Montant<strong>*</strong></label>
+                    <input id="InputBudget" type="number" class="form-control coutDepense">
+                </div>
+
+                <div class="form-group">
+                    <label for="justificatifActuel">Justificatif Actuel : </label>
+                    {{#if fichierActuel}}
+                        <a id="justificatifActuel" class="btn btn-info" href="{{fichierActuel}}" target="_blank">Ouvrir
+                            fichier</a>
+                    {{else}}
+                        <p>Aucune pièce justificative</p>
+                    {{/if}}
+                </div>
+                <div class="form-group">
+                    <label for="justificatif">Justificatif</label>
+                    <input id="justificatif" type="file" class="file file_bag3" data-show-upload="true"
+                           data-show-caption="true">
+                </div>
+                <div class="row">
+                    {{>progressBarEditDepenses}}
+                    <div class="col-md-1">
+                        <a class="btn btn-success editDepense">Modifier</a>
+                    </div>
+
+                </div>
+            </div>
+        </form>
+    {{/if}}
+</template>
+
+<template name="progressBarEditDepenses">
+    <div class="col-md-offset-7 col-md-4">
+        <div class="progress" style="display: block; margin: 0 auto;">
+            <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"
+                 aria-valuemax="100"
+                 style="width:{{progress}}%;">
+                <span>{{progress}}% Complete</span>
+            </div>
+        </div>
+    </div>
+</template>
