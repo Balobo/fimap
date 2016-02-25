@@ -38,11 +38,17 @@ var updateForm = function () {
     $('#tel').val(curAdherent.tel);
     $('#email').val(curAdherent.email);
     $('#adherent').val(curAdherent.adherent);
+    //$('#ville').val(curAdherent.ville);
     $('#province').val(curAdherent.province);
+    //$('#village').val(curAdherent.village);
+    //$('#quartier').val(curAdherent.quartier);
     $('#adresse').val(curAdherent.adresse);
+    //$('#nbrRuches').val(curAdherent.nombreRuches);
     $('#nbrRuchesSah').val(curAdherent.NombreRuchesSahariennes);
     $('#nbrRuchesNoires').val(curAdherent.NombreRuchesNoires);
     $('#commentaire').val(curAdherent.commentaire);
+    $('#numRecu').val(curAdherent.numRecu);
+    $('#montantCotisation').val(curAdherent.montantCotisation);
     //TODO ;: verifier ce code pour la photo de l'adherent.
     //$('#testPic').val(curAdherent.profilePic);
     var radiobtn = document.getElementById(radioId);
@@ -134,6 +140,8 @@ Template.editAdherent.events({
             nombreRuches: nbreRuches,
             NombreRuchesNoires: nbreRuchesNoire,
             NombreRuchesSahariennes: nbreRuchesSah,
+            numRecu: tmpl.find('#numRecu').value,
+            montantCotisation: tmpl.find('#montantCotisation').value,
             commentaire: tmpl.find('#commentaire').value
         };
 
@@ -193,6 +201,8 @@ Template.editAdherent.events({
                         nombreRuches: nbreRuches,
                         NombreRuchesNoires: nbreRuchesNoire,
                         NombreRuchesSahariennes: nbreRuchesSah,
+                        numRecu: tmpl.find('#numRecu').value,
+                        montantCotisation: tmpl.find('#montantCotisation').value,
                         commentaire: tmpl.find('#commentaire').value,
                         profilePic: downloadUrl
                     };

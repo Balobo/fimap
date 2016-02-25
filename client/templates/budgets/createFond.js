@@ -7,7 +7,7 @@
 
 var uploaderJustif = new Slingshot.Upload("myFileUploads");
 
-Template.createBailleur.onRendered(function () {
+Template.createFond.onRendered(function () {
     this.$('.datetimepicker').datetimepicker({
             locale: 'fr',
             format: 'L'
@@ -15,23 +15,23 @@ Template.createBailleur.onRendered(function () {
     );
 });
 
-Template.createBailleur.events({
-    'click .addBailleur': function (evnt, tmpl) {
+
+Template.createFond.events({
+    'click .addFond': function (evnt, tmpl) {
 
         var errorExist = null;
         var file = $('input.file_bag3')[0].files[0];
-        var userType = 'admin';
 
 
-        var bailleur = {
+        var fond = {
             userId: Meteor.userId(),
-            userType: userType,
-            nomBailleur: tmpl.find('.nomBailleur').value,
-            descriptionBailleur: tmpl.find('.bailleurDesc').value,
-            bailleurLocation: tmpl.find('.bailleurLocation').value,
-            justificatifDepense: null
+            idBailleur: tmpl.find('.idBailleur').value,
+            montantFond: tmpl.find('.montantFond').value,
+            dateFond: tmpl.find('.dateFond').value,
+            justificatifFond: null
         };
-        if (!bailleur.nomBailleur || !bailleur.descriptionBailleur) {
+
+        if (!fond.nomFond || !fond.montantFond) {
             errorExist = true;
         }
 
@@ -45,9 +45,9 @@ Template.createBailleur.events({
             });
         } else {
             if (!file) {
-                Meteor.call('addBailleur', bailleur, function (error, result) {
+                Meteor.call('addFond', fond, function (error, result) {
                     if (error) {
-                        sAlert.error("Une erreur est survenue lors de l'enregistrement de ce bailleur, veuillez contacter votre administrateur !", {
+                        sAlert.error("Une erreur est survenue lors de l'enregistrement de ce Fond, veuillez contacter votre administrateur !", {
                             effect: 'bouncyflip',
                             position: 'bottom',
                             timeout: 5000,
@@ -55,7 +55,7 @@ Template.createBailleur.events({
                             stack: false
                         });
                     } else {
-                        sAlert.info("Bailleur enregistré avec succes", {
+                        sAlert.info("Fond enregistré avec succes", {
                             effect: 'bouncyflip',
                             position: 'bottom',
                             timeout: 3000,
@@ -78,19 +78,17 @@ Template.createBailleur.events({
                     }
                     else {
 
-                        var bailleur = {
+                        var fond = {
                             userId: Meteor.userId(),
-                            userType: userType,
-                            nomBailleur: tmpl.find('.nomBailleur').value,
-                            descriptionBailleur: tmpl.find('.bailleurDesc').value,
-                            bailleurLocation: tmpl.find('.bailleurLocation').value,
-                            justificatifBailleur: downloadUrl
+                            idBailleur: tmpl.find('.idBailleur').value,
+                            montantFond: tmpl.find('.montantFond').value,
+                            dateFond: tmpl.find('.dateFond').value,
+                            justificatifFond: downloadUrl
                         };
 
-
-                        Meteor.call('addBailleur', bailleur, function (error, result) {
+                        Meteor.call('addFond', fond, function (error, result) {
                             if (error) {
-                                sAlert.error("Une erreur est survenue lors de l'enregistrement de ce bailleur, veuillez contacter votre administrateur !", {
+                                sAlert.error("Une erreur est survenue lors de l'enregistrement de ce Fond, veuillez contacter votre administrateur !", {
                                     effect: 'bouncyflip',
                                     position: 'bottom',
                                     timeout: 5000,
@@ -98,7 +96,7 @@ Template.createBailleur.events({
                                     stack: false
                                 });
                             } else {
-                                sAlert.info("Bailleur enregistré", {
+                                sAlert.info("Fond enregistré", {
                                     effect: 'bouncyflip',
                                     position: 'bottom',
                                     timeout: 3000,
@@ -117,24 +115,17 @@ Template.createBailleur.events({
             }
 
         }
-    },
-    'click .removeBailleur': function (evnt, tmpl) {
-        if (tmpl.find('#testRemove').value) {
-            return;
-        } else {
-            Meteor.call('removeBailleur', this._id);
-        }
     }
 });
 
-Template.progressBarBailleur.helpers({
+Template.progressBarFond.helpers({
     progress: function () {
         return Math.round(uploaderJustif.progress() * 100);
     }
 });
 
-Template.createBailleur.helpers({
+Template.createFond.helpers({
     bailleurList: function () {
-        return Bailleurs.find();
+        return Bailleurs.find().fetch();
     }
 });

@@ -32,6 +32,8 @@ Meteor.methods({
                     nombreRuches: adherent.nombreRuches,
                     NombreRuchesNoires : adherent.NombreRuchesNoires,
                     NombreRuchesSahariennes : adherent.NombreRuchesSahariennes,
+                    numRecu: adherent.numRecu,
+                    montantCotisation: adherent.montantCotisation,
                     commentaire : adherent.commentaire,
                     profilePic : adherent.profilePic
                 }
@@ -60,6 +62,8 @@ Meteor.methods({
                 nombreRuches: adherent.nombreRuches,
                 NombreRuchesNoires : adherent.NombreRuchesNoires,
                 NombreRuchesSahariennes : adherent.NombreRuchesSahariennes,
+                numRecu: adherent.numRecu,
+                montantCotisation: adherent.montantCotisation,
                 commentaire : adherent.commentaire
             }
         });

@@ -65,5 +65,21 @@ Meteor.methods({
     },
     'removeBailleur': function (id) {
         Bailleurs.remove({_id: id});
+    },
+    'addFond': function (fond) {
+        Fonds.insert(fond);
+    },
+    'editFond': function (fond) {
+        Fonds.update({_id: fond._id}, {
+            $set: {
+                idBailleur: fond.idBailleur,
+                montantFond: fond.montantFond,
+                dateFond: fond.dateFond,
+                justificatifFond: fond.justificatifFond
+            }
+        });
+    },
+    'removeFond': function (id) {
+        Fonds.remove({_id: id});
     }
 });

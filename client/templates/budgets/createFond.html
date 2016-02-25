@@ -1,21 +1,29 @@
-<template name="createBailleur">
+<template name="createFond">
     {{#if currentUser}}
         <h3><i class="fa fa-angle-right"></i> Ajouter un Bailleur de Fond</h3>
 
         <form>
-            <div class="col-md-offset-1 col-md-4" style="margin: 10px">
+            <div class="col-md-offset-1 col-md-4" >
 
                 <div class="form-group">
-                    <label for="InputDescription">Nom du bailleur</label>
-                    <input type="text" id="InputDescription" class="form-control nomBailleur">
+                    <label for="InputDescription">Liste des Bailleur</label>
+                    <select id="dqhd" name="idBailleur" class="form-control idBailleur">
+                        {{#each bailleurList}}
+                            <option value={{this._id}}>{{this.nomBailleur}}</option>
+                        {{/each}}
+                    </select>
                 </div>
+
                 <div class="form-group">
-                    <label for="InputDescription">D&eacute;scription</label>
-                    <textarea id="InputDescription" class="form-control bailleurDesc" rows="3"></textarea>
+                    <label for="montantFond">Montant du Fond</label>
+                    <input id="montantFond" type="number" class="form-control montantFond">
                 </div>
+
                 <div class="form-group">
-                    <label for="InputLocation">Lieu du bailleur</label>
-                    <input id="InputLocation" type="text" class="form-control bailleurLocation">
+                    <label for="inputDate">Date de Fond<strong>*</strong></label>
+                    <input type="text"
+                           class="form-control dateFond datetimepicker"
+                           id="inputDate" placeholder="Choisissez une Date">
                 </div>
 
                 <div class="form-group">
@@ -23,72 +31,20 @@
                     <input id="justificatif" type="file" class="file file_bag3" data-show-upload="true"
                            data-show-caption="true">
                 </div>
-                <a class="btn btn-success addBailleur">Ajouter</a>
-                {{>progressBarBailleur}}
+
+                <a class="btn btn-success addFond">Ajouter</a>
+
+                {{>progressBarFond}}
+
             </div>
 
         </form>
 
-
-        <div class="col-lg-10">
-            <div class="content-panel">
-                <h4> Liste des Bailleurs</h4>
-
-                <table class="table table-striped table-advance table-hover">
-                    <thead>
-                    <tr style="text-align: center;">
-                        <th>Nom du bailleur</th>
-                        <th>Lieu du Bailleur</th>
-                        <th>Justificatif</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {{#each bailleurList}}
-                        <tr style="text-align: center;">
-                            <td><a href="#"> {{nomBailleur}}</a></td>
-                            <td>{{bailleurLocation}}</td>
-                            {{#if justificatifBailleur}}
-                                <td><a href="{{justificatifBailleur}}" target="_blank"
-                                       class="btn btn-primary btn-xs"><i class="fa fa-file"></i></a></td>
-                            {{else}}
-                                <td><i class="fa fa-file-o"></i></td>
-                            {{/if}}
-
-                            <td>
-                                <a href="/bailleur/{{_id}}" class="btn btn-primary btn-xs"><i
-                                        class="fa fa-pencil"></i></a>
-                                <a class="btn btn-danger btn-xs removeBailleur" onclick="return attention();"><i
-                                        class="fa fa-trash-o "></i></a>
-                            </td>
-                        </tr>
-                    {{/each}}
-
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-
-        <script>
-            function attention() {
-                resultat = window.confirm('Attention, vous êtes sur le point de supprimer un Bailleur, voulez-vous continuer ?');
-                if (resultat == 1) {
-                    $('#testRemove').val(null);
-                }
-                else {
-                    $('#testRemove').val("yes");
-                    return false;
-                }
-            }
-        </script>
-
-        <input hidden="true" id="testRemove">
-
     {{/if}}
 </template>
 
-<template name="progressBarBailleur">
+
+<template name="progressBarFond">
     <div class="col-md-4">
         <div class="progress" style="display: block; margin: 0 auto;">
             <div class="progress-bar" role="progressbar" aria-valuenow="{{progress}}" aria-valuemin="0"

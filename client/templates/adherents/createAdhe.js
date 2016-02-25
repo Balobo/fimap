@@ -58,6 +58,8 @@ Template.createAdhe.events({
             nombreRuches: nbreRuches,
             NombreRuchesNoires : nbreRuchesNoire,
             NombreRuchesSahariennes : nbreRuchesSah,
+            numRecu: tmpl.find('#numRecu').value,
+            montantCotisation: tmpl.find('#montantCotisation').value,
             adminRegion: Meteor.userId(),
             commentaire : tmpl.find('#commentaire').value
         };
